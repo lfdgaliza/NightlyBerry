@@ -1,0 +1,46 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+$blue: #42319f;
+$pink: #cc00ff;
+$green: #44775b;
+
+$light-pink: #5b1c6b;
+
+$transparent-blue: rgba(77, 66, 138, 0.801);
+
+body {
+    background-color: #333;
+}
+
+.btn-outline-primary {
+    color: $pink;
+    border-color: $blue;
+
+    &:hover {
+        border-color: $green;
+        background-color: $transparent-blue;
+        color: $pink;
+    }
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {   
+    border-color: rgba(126, 239, 104, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(126, 239, 104, 0.6);
+    outline: 0 none;
+  color: $pink;
+}
