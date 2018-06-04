@@ -1,0 +1,29 @@
+<nav class="side-menu">
+  <div id="navSidebar">
+    <ul>
+      <ng-template #recursiveMenu let-items>
+        <li *ngFor="let item of items">
+
+          <ng-container *ngIf="item.Children.length > 0;else hasntChildren">
+            <a data-toggle="collapse" [href]="'#' + getIdCollapsibleMenu(item)">
+              {{item.Label}}
+            </a>
+
+            <ul *ngIf="item.Children.length > 0" class="collapse show" [id]="getIdCollapsibleMenu(item)">
+              <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: item.Children }"></ng-container>
+            </ul>
+
+          </ng-container>
+
+          <ng-template #hasntChildren>
+            <span class="dropdown-item" (click)="showArticle(item)">
+              {{item.Label}}
+            </span>
+          </ng-template>
+        </li>
+      </ng-template>
+      <ng-container *ngTemplateOutlet="recursiveMenu; context:{ $implicit: items }"></ng-container>
+    </ul>
+
+  </div>
+</nav>

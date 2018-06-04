@@ -1,0 +1,15 @@
+.side-menu {
+    ul {
+        list-style-type: none;
+        padding-left: 1rem;
+    }
+
+    .oi {
+        font-size: 70%;
+    }
+}
+
+.dropdown-item {
+    cursor: pointer;
+    margin-left: -1rem;
+}
