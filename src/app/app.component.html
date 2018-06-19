@@ -1,44 +1,13 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark main-navbar">
-
-  <a class="navbar-brand" href="#">
-    <object data="assets/img/nberry.svg">
-      <img src="assets/img/nberry32.png" />
+<mat-toolbar color="primary" class="mat-elevation-z1">
+  <a href="#" mat-button>
+    <object data="assets/img/nberry-white.svg" class="brand">
+      <img src="assets/img/nb-white-32.png" />
     </object>
+    Nightly Berry
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item" [ngClass]="{'active btn-secondary': isActive('articles')}">
-        <a class="nav-link" routerLink="/articles">
-          <span class="oi oi-lightbulb" title="Articles" aria-hidden="true"></span>
-          Home
-          <span *ngIf="isActive('articles')" class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="nav-item" [ngClass]="{'active btn-secondary': isActive('about-this-project')}">
-        <a class="nav-link" routerLink="/about-this-project">
-          <span class="oi oi-info" title="About this project" aria-hidden="true"></span>
-          About this project
-          <span *ngIf="isActive('about-this-project')" class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="nav-item" [ngClass]="{'active btn-secondary': isActive('contact')}">
-        <a class="nav-link" routerLink="/contact">
-          <span class="oi oi-fullscreen-exit" title="Contact" aria-hidden="true"></span>
-          Contact
-          <span *ngIf="isActive('contact')" class="sr-only">(current)</span>
-        </a>
-      </li>
-    </ul>
 
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2 bg-dark" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+  <!-- This fills the remaining space of the current row -->
+  <span class="filler"></span>
 
-<router-outlet></router-outlet>
+  <span>Right Aligned Text</span>
+</mat-toolbar>

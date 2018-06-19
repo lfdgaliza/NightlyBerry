@@ -1,23 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/pages/home/home.component';
-import { SideMenuComponent } from './components/side-menu/side-menu.component';
-
-import { MarkdownModule, MarkdownService, MarkedOptions } from 'ngx-markdown';
+import { CustomMaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    SideMenuComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MarkdownModule.forRoot(),
+    BrowserAnimationsModule,
+    CustomMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

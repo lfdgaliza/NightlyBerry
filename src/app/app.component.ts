@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'nb-root',
@@ -7,9 +6,5 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(private _router: Router) {   }
-
-  isActive(path: string) {
-    return this._router.url.endsWith(path);
-  }
+  title = 'nb';
 }
