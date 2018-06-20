@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ArticleService } from '../../services/article.service';
+import { ArticleMenuService } from '../../services/article-menu.service';
 
 @Component({
   selector: 'nb-md-reader',
   templateUrl: './md-reader.component.html',
   styleUrls: ['./md-reader.component.scss'],
-  providers: [ArticleService]
+  providers: [ArticleMenuService]
 })
 export class MdReaderComponent implements OnInit {
 
   id: number;
 
-  constructor(private route: ActivatedRoute, private aricleService: ArticleService) {
+  constructor(private route: ActivatedRoute, private aricleMenuService: ArticleMenuService) {
 
   }
 
   ngOnInit() {
-    this.aricleService.getCategoriesMenu().subscribe(r => {
+    this.aricleMenuService.getCategoriesMenu().subscribe(r => {
       console.log(r);
       console.log("foi");
     });
