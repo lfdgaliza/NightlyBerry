@@ -1,0 +1,11 @@
+
+
+
+
+<mat-form-field class="example-full-width">
+  <input matInput placeholder="Article Id" [(ngModel)]="articleId">
+</mat-form-field>
+
+<button mat-button (click)="showArticle()">Go</button>
+
+<router-outlet name="article"></router-outlet>
