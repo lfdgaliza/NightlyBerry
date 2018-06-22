@@ -9,9 +9,13 @@ class ArticleMenu {
   category: string;
   parent: ArticleMenu;
   children: ArticleMenu[];
+  articles: ArticleMenu[];
 
   public constructor(init?: Partial<ArticleMenu>) {
     Object.assign(this, init);
+
+    if (this.children === undefined)
+      this.children = new Array<ArticleMenu>();
   }
 }
 
@@ -19,6 +23,19 @@ class ArticleMenu {
   providedIn: 'root'
 })
 export class ArticleMenuService {
+  getFullCategory(articleMenu: ArticleMenu): string {
+    
+    let actualParent = articleMenu.parent;
+    let result = articleMenu.category;
+
+    while(actualParent !== undefined) {
+      result = `${actualParent.category}.${result}`;
+      actualParent = actualParent.parent;
+    }
+
+    console.log("PARENT", articleMenu, result);
+    return result;
+  }
   constructor(private http: HttpClient) { }
 
   public getCategoriesMenu(): Observable<ArticleMenu[]> {
@@ -37,7 +54,7 @@ export class ArticleMenuService {
       let currentDepth = 0;
 
       let currentItem = this.getCurrentItem(items, splittedCategories, currentDepth);
-      currentItem.children = this.getChildren(splittedCategories, ++currentDepth, currentItem);
+      this.getChildrenCategories(splittedCategories, ++currentDepth, currentItem, itemsResponse);
     });
 
     return items;
@@ -53,19 +70,18 @@ export class ArticleMenuService {
     return splittedCategories.filter(c => c);
   }
 
-  getChildren(splittedCategories: string[], currentDepth: number, parentItem: ArticleMenu): ArticleMenu[] {
+  getChildrenCategories(splittedCategories: string[], currentDepth: number, parentItem: ArticleMenu, itemsResponse: ArticleMenu[]): ArticleMenu[] {
 
-    if (parentItem.children === undefined)
-      parentItem.children = new Array<ArticleMenu>();
+    if (currentDepth === splittedCategories.length)
+      return undefined;
 
     let currentItem = this.getCurrentItem(parentItem.children, splittedCategories, currentDepth);
 
-    if (currentDepth === splittedCategories.length) {
-      return undefined;
-    }
-
-    currentItem.children = this.getChildren(splittedCategories, ++currentDepth, currentItem);
+    this.getChildrenCategories(splittedCategories, ++currentDepth, currentItem, itemsResponse);
     currentItem.parent = parentItem;
+    if (currentItem.children.length < 1) {
+      currentItem.articles = itemsResponse.filter(ir => ir.category === this.getFullCategory(currentItem))
+    }
 
     return parentItem.children;
   }
