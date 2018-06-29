@@ -2,7 +2,9 @@ using Amazon.Lambda.Core;
 using NB.Shared.BasicClasses;
 using NB.Shared.BasicClasses.Category;
 using NB.Shared.BasicClasses.Enum;
+using NB.Shared.Configuration;
 using System;
+using System.Data;
 using System.Data.SqlClient;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -17,6 +19,36 @@ namespace NB.Articles.PagedQuery
     }
     public class Function
     {
+        static readonly SqlCommand command;
+
+        static Function()
+        {
+            var connection = new SqlConnection(new Configuration().Get(ConfigurationItem.ConnectionString));
+
+            command = new SqlCommand(
+                @"select D.Id, D.CategoryId, D.CreatedAt, DC.Text, DC.Title, total_count = COUNT(*) OVER()
+                from Document D
+                join DocumentContent DC on D.Id = DC.DocumentId and DC.LanguageId = @languageId
+                where D.DocumentTypeId = @documentTypeId
+                order by CreatedAt desc
+                offset @offset rows fetch next @fetch rows only;", connection);
+
+            command.Parameters.Add("@languageId", SqlDbType.Int);
+            command.Parameters.Add("@documentTypeId", SqlDbType.Int);
+            command.Parameters.Add("@offset", SqlDbType.Int);
+            command.Parameters.Add("@fetch", SqlDbType.Int);
+
+            try
+            {
+                connection.Open();
+            }
+            catch
+            {
+                Console.WriteLine("[NB.Articles.PagedQuery] Something bad happened during the connection opening");
+                throw;
+            }
+        }
+
         /// <summary>
         /// Used to show the most recent articles on the home page.
         /// </summary>
@@ -27,26 +59,16 @@ namespace NB.Articles.PagedQuery
             // Errors
             // PageSize < 1
             // PageIndex < 1
-            var strCon = "Server=nightlyberry.cqm4dbzoplhr.us-east-1.rds.amazonaws.com;Database=nb_dev;User Id=nightlyberry;Password = gdmdu3D29!;";
-
-            var sql = @"select D.Id, D.CategoryId, D.CreatedAt, DC.Text, DC.Title, total_count = COUNT(*) OVER()
-                        from Document D
-                        join DocumentContent DC on D.Id = DC.DocumentId and DC.LanguageId = @languageId
-                        where D.DocumentTypeId = @documentTypeId
-                        order by CreatedAt desc
-                        offset @offset rows fetch next @fetch rows only;";
+            
+            command.Parameters["@languageId"].Value = (int)filter.Language;
+            command.Parameters["@documentTypeId"].Value = (int)filter.DocumentType;
+            command.Parameters["@offset"].Value = (filter.PageIndex - 1) * filter.PageSize;
+            command.Parameters["@fetch"].Value = filter.PageSize;
 
             var result = new PagedResult<Document>(filter);
 
-            using (var connection = new SqlConnection(strCon))
+            try
             {
-                var command = new SqlCommand(sql, connection);
-                command.Parameters.AddWithValue("@languageId", (int)filter.Language);
-                command.Parameters.AddWithValue("@documentTypeId", (int)filter.DocumentType);
-                command.Parameters.AddWithValue("@offset", (filter.PageIndex - 1) * filter.PageSize);
-                command.Parameters.AddWithValue("@fetch", filter.PageSize);
-                connection.Open();
-
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -66,6 +88,11 @@ namespace NB.Articles.PagedQuery
                             result.TotalItems = (int)reader[5];
                     }
                 }
+            }
+            catch
+            {
+                Console.WriteLine("[NB.Articles.PagedQuery] Something bad happened during the command execution");
+                throw;
             }
 
             return result;

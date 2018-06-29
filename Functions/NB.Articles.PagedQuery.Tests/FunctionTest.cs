@@ -1,14 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using Xunit;
-using Amazon.Lambda.Core;
 using Amazon.Lambda.TestUtilities;
-
-using NB.Articles.PagedQuery;
 using NB.Shared.BasicClasses.Enum;
+using System;
+using Xunit;
 
 namespace NB.Articles.PagedQuery.Tests
 {
@@ -17,6 +10,7 @@ namespace NB.Articles.PagedQuery.Tests
         [Fact]
         public void TestToUpperFunction()
         {
+            Environment.SetEnvironmentVariable("Stage", "Development");
             var function = new Function();
             var context = new TestLambdaContext
             {
@@ -24,6 +18,14 @@ namespace NB.Articles.PagedQuery.Tests
             };
 
             var result = function.FunctionHandler(new Filter
+            {
+                DocumentType = DocumentType.Article,
+                Language = Language.En,
+                PageIndex = 1,
+                PageSize = 10
+            }, context);
+
+            result = function.FunctionHandler(new Filter
             {
                 DocumentType = DocumentType.Article,
                 Language = Language.En,

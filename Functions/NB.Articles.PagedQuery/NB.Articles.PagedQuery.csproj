@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NB.Shared.BasicClasses\NB.Shared.BasicClasses.csproj" />
+    <ProjectReference Include="..\NB.Shared.Configuration\NB.Shared.Configuration.csproj" />
   </ItemGroup>
 
 </Project>
