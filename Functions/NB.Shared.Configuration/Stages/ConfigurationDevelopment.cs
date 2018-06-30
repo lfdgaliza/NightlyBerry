@@ -1,12 +1,30 @@
-﻿namespace NB.Shared.Configuration.Stages
+﻿using System.Threading.Tasks;
+using Amazon;
+using Amazon.S3;
+using Amazon.S3.Model;
+using System.IO;
+
+namespace NB.Shared.Configuration.Stages
 {
     public class ConfigurationDevelopment : ConfigurationChainBase
     {
         public ConfigurationDevelopment() : base(StageOption.Development) { }
 
-        protected override string GetConnectionString()
+        protected override async Task<string> GetConnectionString()
         {
-            return "Server=nightlyberry.cqm4dbzoplhr.us-east-1.rds.amazonaws.com;Database=nb_dev;User Id=nightlyberry;Password = gdmdu3D29!;";
+            var client = new AmazonS3Client(RegionEndpoint.USEast1);
+            var request = new GetObjectRequest()
+            {
+                BucketName = "nightlyberry",
+                Key = "configuration/db_conStr_dev"
+            };
+
+            using (GetObjectResponse response = await client.GetObjectAsync(request))
+            using (Stream responseStream = response.ResponseStream)
+            using (StreamReader reader = new StreamReader(responseStream))
+            {
+                return reader.ReadToEnd();
+            }
         }
     }
 }

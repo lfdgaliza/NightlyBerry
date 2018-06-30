@@ -6,6 +6,7 @@ using NB.Shared.Configuration;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.Json.JsonSerializer))]
@@ -19,34 +20,39 @@ namespace NB.Articles.PagedQuery
     }
     public class Function
     {
-        static readonly SqlCommand command;
+        static SqlCommand _command;
 
-        static Function()
+        async Task<SqlCommand> GetCommand()
         {
-            var connection = new SqlConnection(new Configuration().Get(ConfigurationItem.ConnectionString));
+            if(_command == null)
+            {
+                var connection = new SqlConnection(await new Configuration().Get(ConfigurationItem.ConnectionString));
 
-            command = new SqlCommand(
-                @"select D.Id, D.CategoryId, D.CreatedAt, DC.Text, DC.Title, total_count = COUNT(*) OVER()
+                _command = new SqlCommand(
+                    @"select D.Id, D.CategoryId, D.CreatedAt, DC.Text, DC.Title, total_count = COUNT(*) OVER()
                 from Document D
                 join DocumentContent DC on D.Id = DC.DocumentId and DC.LanguageId = @languageId
                 where D.DocumentTypeId = @documentTypeId
                 order by CreatedAt desc
                 offset @offset rows fetch next @fetch rows only;", connection);
 
-            command.Parameters.Add("@languageId", SqlDbType.Int);
-            command.Parameters.Add("@documentTypeId", SqlDbType.Int);
-            command.Parameters.Add("@offset", SqlDbType.Int);
-            command.Parameters.Add("@fetch", SqlDbType.Int);
+                _command.Parameters.Add("@languageId", SqlDbType.Int);
+                _command.Parameters.Add("@documentTypeId", SqlDbType.Int);
+                _command.Parameters.Add("@offset", SqlDbType.Int);
+                _command.Parameters.Add("@fetch", SqlDbType.Int);
 
-            try
-            {
-                connection.Open();
+                try
+                {
+                    connection.Open();
+                }
+                catch
+                {
+                    Console.WriteLine("[NB.Articles.PagedQuery] Something bad happened during the connection opening");
+                    throw;
+                }
             }
-            catch
-            {
-                Console.WriteLine("[NB.Articles.PagedQuery] Something bad happened during the connection opening");
-                throw;
-            }
+
+            return _command;
         }
 
         /// <summary>
@@ -54,12 +60,12 @@ namespace NB.Articles.PagedQuery
         /// </summary>
         /// <param name="context"></param>
         /// <returns>Entire articles</returns>
-        public PagedResult<Document> FunctionHandler(Filter filter, ILambdaContext context)
+        public async Task<PagedResult<Document>> FunctionHandler(Filter filter, ILambdaContext context)
         {
             // Errors
             // PageSize < 1
             // PageIndex < 1
-            
+            var command = await GetCommand();
             command.Parameters["@languageId"].Value = (int)filter.Language;
             command.Parameters["@documentTypeId"].Value = (int)filter.DocumentType;
             command.Parameters["@offset"].Value = (filter.PageIndex - 1) * filter.PageSize;
@@ -94,7 +100,7 @@ namespace NB.Articles.PagedQuery
                 Console.WriteLine("[NB.Articles.PagedQuery] Something bad happened during the command execution");
                 throw;
             }
-
+            
             return result;
         }
     }

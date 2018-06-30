@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace NB.Shared.Configuration
 {
@@ -6,13 +7,13 @@ namespace NB.Shared.Configuration
     {
         protected ConfigurationChainBase(StageOption treatingStage) => _treatingStage = treatingStage;
         public void SetSucessor(ConfigurationChainBase successor) => _successor = successor;
-        public string Get(ConfigurationItem configurationItem)
+        public async Task<string> Get(ConfigurationItem configurationItem)
         {
             return CurrentStage == _treatingStage
-                ? RetrieveConfiguration(configurationItem)
-                : _successor.Get(configurationItem);
+                ? await RetrieveConfiguration(configurationItem)
+                : await _successor.Get(configurationItem);
         }
-        
+
         private ConfigurationChainBase _successor = null;
         private StageOption CurrentStage
         {
@@ -27,20 +28,20 @@ namespace NB.Shared.Configuration
         }
 
         private StageOption _treatingStage;
-        
 
-        private string RetrieveConfiguration(ConfigurationItem configurationItem)
+
+        private async Task<string> RetrieveConfiguration(ConfigurationItem configurationItem)
         {
             switch (configurationItem)
             {
                 case ConfigurationItem.ConnectionString:
-                    return GetConnectionString();
+                    return await GetConnectionString();
                 default:
                     Console.WriteLine("[NB.Shared.Configuration] You are trying to use a configuration that was not implemented yet");
                     throw new NotImplementedException();
             }
         }
 
-        protected abstract string GetConnectionString();
+        protected abstract Task<string> GetConnectionString();
     }
 }

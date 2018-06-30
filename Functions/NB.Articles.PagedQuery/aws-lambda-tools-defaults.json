@@ -17,7 +17,7 @@
     "function-name"        : "NB_Articles_PagedQuery",
     "function-role"        : "arn:aws:iam::027720345484:role/NB_Lambda_ArticlePagedQuery_UsesRDS",
     "tracing-mode"         : "PassThrough",
-    "environment-variables" : "",
+    "environment-variables" : "\"Stage\"=\"Development\"",
     "function-subnets"      : "subnet-a7bc36d1,subnet-9f9934c7,subnet-2ba7d94e,subnet-aaa17a80,subnet-bd167e80,subnet-701a767c",
     "function-security-groups" : "sg-0a64ca9eb641c7079,sg-4690373e"
 }

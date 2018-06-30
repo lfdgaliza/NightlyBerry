@@ -1,13 +1,14 @@
 ﻿using NB.Shared.Configuration.Stages;
+using System.Threading.Tasks;
 
 namespace NB.Shared.Configuration
 {
     public class Configuration
     {
-        public string Get(ConfigurationItem configurationItem)
+        public async Task<string> Get(ConfigurationItem configurationItem)
         {
             ConfigurationChainBase configuration = CreateChain();
-            return configuration.Get(configurationItem);
+            return await configuration.Get(configurationItem);
         }
 
         private ConfigurationChainBase CreateChain()

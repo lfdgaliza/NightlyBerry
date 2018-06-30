@@ -25,6 +25,8 @@ namespace NB.Articles.PagedQuery.Tests
                 PageSize = 10
             }, context);
 
+            result.Wait();
+
             result = function.FunctionHandler(new Filter
             {
                 DocumentType = DocumentType.Article,
@@ -33,7 +35,9 @@ namespace NB.Articles.PagedQuery.Tests
                 PageSize = 10
             }, context);
 
-            Assert.True(result.Items.Count == 3);
+            var awaitedResult = result.Result;
+
+            Assert.True(awaitedResult.Items.Count == 3);
         }
     }
 }
