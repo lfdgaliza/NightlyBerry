@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>NightlyBerry.LinuxTree.Impl.Repositories</AssemblyName>
+    <RootNamespace>NightlyBerry.LinuxTree.Impl.Repositories</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain.Contracts\Domain.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
