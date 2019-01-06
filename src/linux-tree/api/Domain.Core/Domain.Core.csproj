@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\common\NightlyBerry.Common\NightlyBerry.Common.csproj" />
     <ProjectReference Include="..\Domain.Model\Domain.Model.csproj" PrivateAssets="All" />
     <ProjectReference Include="..\Domain.Output\Domain.Output.csproj" />
