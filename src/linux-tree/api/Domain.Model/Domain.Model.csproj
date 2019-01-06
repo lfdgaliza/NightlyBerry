@@ -6,4 +6,8 @@
     <RootNamespace>NightlyBerry.LinuxTree.Domain.Model</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\common\NightlyBerry.Common\NightlyBerry.Common.csproj" />
+  </ItemGroup>
+
 </Project>
