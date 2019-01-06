@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -12,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain.Model\Domain.Model.csproj" />
+    <ProjectReference Include="..\..\..\common\NightlyBerry.Common\NightlyBerry.Common.csproj" />
+    <ProjectReference Include="..\Domain.Model\Domain.Model.csproj" PrivateAssets="All" />
+    <ProjectReference Include="..\Domain.Output\Domain.Output.csproj" />
   </ItemGroup>
 
 </Project>

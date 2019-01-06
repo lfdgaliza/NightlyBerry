@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>NightlyBerry.LinuxTree.Domain.Output</AssemblyName>
+    <RootNamespace>NightlyBerry.LinuxTree.Domain.Output</RootNamespace>
+  </PropertyGroup>
+
+</Project>
