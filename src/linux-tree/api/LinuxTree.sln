@@ -25,10 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NightlyBerry.Common", "..\.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Core", "Domain.Core\Domain.Core.csproj", "{03E5243A-37B1-4F1F-90E6-BB17E0599976}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Output", "Domain.Output\Domain.Output.csproj", "{C4A66314-4AAB-40E8-9894-91E2E43A7AF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Output", "Domain.Output\Domain.Output.csproj", "{C4A66314-4AAB-40E8-9894-91E2E43A7AF5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Deploy", "3 - Deploy", "{CC0B1345-A439-4B14-B609-0CD7F1EA2224}"
 	ProjectSection(SolutionItems) = preProject
+		initial insertions.sql = initial insertions.sql
 		nb.linux-tree.sql = nb.linux-tree.sql
 	EndProjectSection
 EndProject
