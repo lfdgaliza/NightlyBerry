@@ -8,7 +8,7 @@ namespace NightlyBerry.LinuxTree.Presentation.API
     public static class SwaggerConfiguration
     {
         const string SwaggerTitle = "Nightly Berry - LinuxTree";
-        public static void AddSwagger(IServiceCollection services)
+        public static void ConfigureSwagger(IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
              {

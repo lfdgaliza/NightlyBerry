@@ -24,6 +24,8 @@
     <ProjectReference Include="..\..\..\common\NightlyBerry.Common\NightlyBerry.Common.csproj" />
     <ProjectReference Include="..\Domain.Core\Domain.Core.csproj" />
     <ProjectReference Include="..\Domain.Output\Domain.Output.csproj" />
+    <ProjectReference Include="..\Impl.Repositories\Impl.Repositories.csproj" />
+    <ProjectReference Include="..\Impl.Services\Impl.Services.csproj" />
   </ItemGroup>
 
 </Project>

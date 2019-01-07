@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
+using NightlyBerry.Common.DependencyInjection.Marking;
 using NightlyBerry.Common.Model;
 
 namespace NightlyBerry.Common.Repository
 {
-    public interface IRepository<TEntity> where TEntity : ModelBase
+    public interface IRepository<TEntity> : IRepository
+        where TEntity : ModelBase
     {
         void Add(TEntity entity);
         void AddBulk(IEnumerable<TEntity> entities);

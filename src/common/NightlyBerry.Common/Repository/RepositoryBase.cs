@@ -9,7 +9,8 @@ using NightlyBerry.Common.Model;
 
 namespace NightlyBerry.Common.Repository
 {
-    public abstract class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity : ModelBase
+    public abstract class RepositoryBase<TEntity> : IRepository<TEntity>
+        where TEntity : ModelBase
     {
         private readonly DbContext context;
 

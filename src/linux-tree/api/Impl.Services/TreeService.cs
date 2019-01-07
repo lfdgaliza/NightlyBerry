@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using NightlyBerry.LinuxTree.Domain.Contracts.Repositories;
-using NightlyBerry.LinuxTree.Domain.Contracts.Services;
+using NightlyBerry.LinuxTree.Domain.Core.Repositories;
+using NightlyBerry.LinuxTree.Domain.Core.Services;
 using NightlyBerry.LinuxTree.Domain.Output;
 
 namespace NightlyBerry.LinuxTree.Impl.Services

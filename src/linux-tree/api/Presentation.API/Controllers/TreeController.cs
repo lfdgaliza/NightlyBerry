@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using Microsoft.AspNetCore.Mvc;
 
-using NightlyBerry.LinuxTree.Domain.Contracts.Services;
+using NightlyBerry.LinuxTree.Domain.Core.Services;
 using NightlyBerry.LinuxTree.Domain.Output;
 
 namespace Presentation.API.Controllers
