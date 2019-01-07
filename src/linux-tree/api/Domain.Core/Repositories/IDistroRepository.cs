@@ -1,6 +1,11 @@
-﻿namespace NightlyBerry.LinuxTree.Domain.Contracts.Repositories
+﻿
+using NightlyBerry.Common.Repository;
+using NightlyBerry.LinuxTree.Domain.Model;
+
+namespace NightlyBerry.LinuxTree.Domain.Contracts.Repositories
 {
-    public class IDistroRepository
+    public interface IDistroRepository : IRepository<Distro>
     {
+
     }
 }
