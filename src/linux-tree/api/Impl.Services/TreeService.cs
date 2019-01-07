@@ -17,7 +17,13 @@ namespace NightlyBerry.LinuxTree.Impl.Services
         }
         public List<TreeDTO> GenerateTree()
         {
-            var distros = this.distroRepository.GetAll(false, "VariantList");
+            var distros = this.distroRepository.GetAll(false,
+                "VariantList",
+                "VariantList.ReleaseList",
+                "VariantList.ReleaseList.DerivationList");
+
+
+
             throw new NotImplementedException();
         }
     }

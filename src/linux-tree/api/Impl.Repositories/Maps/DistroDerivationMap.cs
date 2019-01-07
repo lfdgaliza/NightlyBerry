@@ -13,7 +13,7 @@ namespace NightlyBerry.LinuxTree.Impl.Repositories.Maps
             builder.Property(p => p.DerivesFromId).HasColumnName("DerivesFromId");
             builder.HasOne(p => p.DerivesFrom).WithMany(p => p.ParentList).HasForeignKey(p => p.DerivesFromId);
 
-            builder.Property(p => p.ReleaseId).HasColumnName("ReleaseId");
+            builder.Property(p => p.ReleaseId).HasColumnName("DistroReleaseId");
             builder.HasOne(p => p.Release).WithMany(p => p.DerivationList).HasForeignKey(p => p.ReleaseId);
         }
     }
