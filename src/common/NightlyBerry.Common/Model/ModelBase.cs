@@ -1,7 +1,9 @@
-﻿namespace NightlyBerry.Common.Model
+﻿using System;
+
+namespace NightlyBerry.Common.Model
 {
     public class ModelBase
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }
