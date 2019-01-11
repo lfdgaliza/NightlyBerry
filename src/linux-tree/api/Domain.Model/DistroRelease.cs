@@ -13,7 +13,7 @@ namespace NightlyBerry.LinuxTree.Domain.Model
         public string Name { get; set; }
         public DateTime ReleaseDate { get; set; }
 
+        public ICollection<DistroDerivation> ChildList { get; set; }
         public ICollection<DistroDerivation> ParentList { get; set; }
-        public ICollection<DistroDerivation> DerivationList { get; set; }
     }
 }

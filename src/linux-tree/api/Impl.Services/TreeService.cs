@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using NightlyBerry.LinuxTree.Domain.Core.Repositories;
 using NightlyBerry.LinuxTree.Domain.Core.Services;
@@ -20,9 +21,16 @@ namespace NightlyBerry.LinuxTree.Impl.Services
             var distros = this.distroRepository.GetAll(false,
                 "VariantList",
                 "VariantList.ReleaseList",
-                "VariantList.ReleaseList.DerivationList");
+                "VariantList.ReleaseList.ParentList");
 
-
+            var roots = distros
+                .Where(d => d.VariantList.Any(v => v.ReleaseList.Any(r => !r.ParentList.Any())))
+                .Select(d => new TreeDTO
+                {
+                    Id = d.Id,
+                    Name = d.Name
+                    // ,Children = GetChildren(d.Id, distros)
+                });
 
             throw new NotImplementedException();
         }
