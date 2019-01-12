@@ -9,6 +9,7 @@ namespace NightlyBerry.LinuxTree.Domain.Model
     {
         public string Name { get; set; }
 
-        public ICollection<DistroVariant> VariantList { get; set; }
+        public ICollection<DistroDerivation> ChildList { get; set; }
+        public ICollection<DistroDerivation> ParentList { get; set; }
     }
 }

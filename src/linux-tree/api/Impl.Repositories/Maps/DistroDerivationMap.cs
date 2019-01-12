@@ -10,11 +10,11 @@ namespace NightlyBerry.LinuxTree.Impl.Repositories.Maps
     {
         public override void Map(EntityTypeBuilder<DistroDerivation> builder)
         {
-            builder.Property(p => p.DerivesFromId).HasColumnName("DerivesFromId");
-            builder.HasOne(p => p.DerivesFrom).WithMany(p => p.ChildList).HasForeignKey(p => p.DerivesFromId);
+            builder.Property(p => p.BasedOnId).HasColumnName("BasedOnId");
+            builder.HasOne(p => p.Parent).WithMany(p => p.ChildList).HasForeignKey(p => p.BasedOnId);
 
-            builder.Property(p => p.ReleaseId).HasColumnName("DistroReleaseId");
-            builder.HasOne(p => p.Release).WithMany(p => p.ParentList).HasForeignKey(p => p.ReleaseId);
+            builder.Property(p => p.ReleaseId).HasColumnName("DistroId");
+            builder.HasOne(p => p.Distro).WithMany(p => p.ParentList).HasForeignKey(p => p.ReleaseId);
         }
     }
 }
