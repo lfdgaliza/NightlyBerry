@@ -2,14 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>NightlyBerry.LinuxTree.Domain.Contracts</AssemblyName>
-    <RootNamespace>NightlyBerry.LinuxTree.Domain.Contracts</RootNamespace>
+    <AssemblyName>NightlyBerry.LinuxTree.Domain.Core</AssemblyName>
+    <RootNamespace>NightlyBerry.LinuxTree.Domain.Core</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="Repositories\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\common\NightlyBerry.Common\NightlyBerry.Common.csproj" />

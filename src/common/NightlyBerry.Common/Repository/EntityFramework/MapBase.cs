@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
 using NightlyBerry.Common.Model;
 
 namespace NightlyBerry.Common.Repository.EntityFramework
@@ -12,6 +13,7 @@ namespace NightlyBerry.Common.Repository.EntityFramework
         {
             Map(builder);
 
+            builder.HasKey(p => p.Id);
             builder.Property(e => e.Id).HasColumnName("Id");
         }
     }
