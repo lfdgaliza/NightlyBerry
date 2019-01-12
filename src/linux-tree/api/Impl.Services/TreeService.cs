@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using NightlyBerry.LinuxTree.Domain.Core.Repositories;
 using NightlyBerry.LinuxTree.Domain.Core.Services;
+using NightlyBerry.LinuxTree.Domain.Model;
 using NightlyBerry.LinuxTree.Domain.Output;
 
 namespace NightlyBerry.LinuxTree.Impl.Services
@@ -24,11 +26,25 @@ namespace NightlyBerry.LinuxTree.Impl.Services
                 .Select(s => new TreeDTO
                 {
                     Name = s.Name,
-                    Id = s.Id
+                    Id = s.Id,
+                    Children = GetChildren(s.Id, releases)
                 })
                 .ToList();
 
             return roots;
+        }
+
+        private List<TreeDTO> GetChildren(Guid id, ICollection<Distro> releases)
+        {
+            return releases
+                .Where(w => w.ParentList.Select(p => p.BasedOnId).Contains(id))
+                .Select(s => new TreeDTO
+                {
+                    Name = s.Name,
+                    Id = s.Id,
+                    Children = GetChildren(s.Id, releases)
+                })
+                .ToList();
         }
     }
 }
