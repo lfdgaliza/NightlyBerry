@@ -11,7 +11,9 @@ export class AppComponent {
   rootOrbiter: Orbiter = new Orbiter(Guid.newGuid(), "sun", [
     new Orbiter(Guid.newGuid(), "Mercury"),
     new Orbiter(Guid.newGuid(), "Venus"),
-    new Orbiter(Guid.newGuid(), "Earth"),
+    new Orbiter(Guid.newGuid(), "Earth", [
+      new Orbiter(Guid.newGuid(), "Moon")
+    ]),
     new Orbiter(Guid.newGuid(), "Mars")
   ])
 }

@@ -1,3 +1,4 @@
-<p>
-  orbiter works!
-</p>
+{{orbiter.name}}
+<ng-container *ngFor="let child of orbiter.children; let i = index">
+  <nb-lv-orbiter [orbiter]="child"></nb-lv-orbiter>
+</ng-container>
