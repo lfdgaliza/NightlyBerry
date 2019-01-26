@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { Orbiter } from './services/models/orbiter';
 
 @Component({
@@ -12,6 +13,7 @@ export class AppComponent {
     new Orbiter(Guid.newGuid(), "Mercury"),
     new Orbiter(Guid.newGuid(), "Venus"),
     new Orbiter(Guid.newGuid(), "Earth", [
+      new Orbiter(Guid.newGuid(), "Moon"),
       new Orbiter(Guid.newGuid(), "Moon")
     ]),
     new Orbiter(Guid.newGuid(), "Mars")

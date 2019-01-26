@@ -1,7 +1,7 @@
 export class Orbiter {
-    private id: string
-    private name: string
-    private children: Array<Orbiter>
+    id: string
+    name: string
+    children: Array<Orbiter>
 
     constructor(id: string, name: string, children: Array<Orbiter> = new Array<Orbiter>()) {
         this.id = id

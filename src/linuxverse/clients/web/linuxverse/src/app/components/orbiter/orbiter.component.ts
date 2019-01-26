@@ -10,6 +10,7 @@ export class OrbiterComponent {
   @Input() orbiter: Orbiter
   @Input() position: number
   @Input() depth: number
+  @Input() starSize: number
 
   constructor(private el: ElementRef) {
     this.depth = this.depth || 0
@@ -21,15 +22,19 @@ export class OrbiterComponent {
 
     this.resizeOrbiter(parentOrbiter, orbiterElement);
 
+    if (this.orbiter.name == "Moon") {
+      console.log(parentOrbiter)
+      console.log(orbiterElement)
+    }
+
 
   }
 
-
   private resizeOrbiter(parentOrbiter: any, orbiterElement: any) {
-    if (this.depth > 0) {
-      const newSize = parentOrbiter.clientHeight / (this.depth + 1);
-      orbiterElement.style.height = `${newSize}px`;
-      orbiterElement.style.width = `${newSize}px`;
-    }
+    const newSize = this.depth > 0
+      ? this.starSize / (this.depth + 1)
+      : this.starSize
+    orbiterElement.style.height = `${newSize}px`;
+    orbiterElement.style.width = `${newSize}px`;
   }
 }
