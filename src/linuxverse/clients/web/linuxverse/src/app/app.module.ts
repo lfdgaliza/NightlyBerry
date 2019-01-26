@@ -3,12 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { OrbiterComponent } from './components/fragments/orbiter/orbiter.component';
+import { OrbiterComponent } from './components/orbiter/orbiter.component';
+import { UniverseComponent } from './components/universe/universe.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    OrbiterComponent
+    OrbiterComponent,
+    UniverseComponent
   ],
   imports: [
     BrowserModule,
