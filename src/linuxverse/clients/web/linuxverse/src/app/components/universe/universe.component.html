@@ -1,1 +1,14 @@
-<nb-lv-orbiter [orbiter]="rootOrbiter"></nb-lv-orbiter>
+<div class="vacuum">
+        <nb-lv-orbiter [orbiter]="rootOrbiter"></nb-lv-orbiter>
+</div>
+
+<style>
+    .vacuum {
+        position: absolute;
+        background-color: red;
+        top: 50%;
+        left: 50%;
+        width: 0px;
+        height: 0px;
+    }
+</style>
