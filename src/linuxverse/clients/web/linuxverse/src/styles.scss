@@ -1,5 +1,5 @@
 html {
-  background-color: #333;
+  background-color: #222;
 }
 
 .orbiter {
@@ -8,6 +8,14 @@ html {
   border-radius: 50%;
   background-color: lightblue;
   position: relative;
+}
+
+.orbiter-path {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border: 1px dashed #444;
+  border-radius: 50%;
 }
 
 .label {

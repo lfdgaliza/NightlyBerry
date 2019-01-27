@@ -23,6 +23,10 @@ export class OrbiterComponent implements OnInit {
     return this.starSize / this.depth
   }
 
+  get pathRadius() {
+    return ((this.position + 1) * this.orbiterSize * 1.2) + this.parentOrbiterSize / 2
+  }
+
   constructor(private el: ElementRef, private builder: AnimationBuilder) { }
 
   ngOnInit(): void {
@@ -36,19 +40,35 @@ export class OrbiterComponent implements OnInit {
     const orbiterElement = this.el.nativeElement.firstChild
 
     this.setOrbiterSize(orbiterElement)
+    this.setOrbiterPosition(orbiterElement)
+    if (!this.isStar)
+      this.animate(orbiterElement)
 
-    if (!this.isStar) this.setOrbiterPosition(orbiterElement)
+    if (!this.isStar) {
+      const orbiterPathElement = this.el.nativeElement.children[1]
+      orbiterPathElement.style.height = `${this.pathRadius * 2}px`
+      orbiterPathElement.style.width = `${this.pathRadius * 2}px`
+      orbiterPathElement.style.top = `-${this.pathRadius - this.orbiterSize}px`
+      orbiterPathElement.style.left = `-${this.pathRadius - this.orbiterSize}px`
+      console.log(orbiterPathElement)
+    }
+
   }
 
   private setOrbiterPosition(orbiterElement: any) {
-    console.log(orbiterElement)
-    const topPosition =
-      this.parentOrbiterSize / 4 - this.position * this.orbiterSize
-    const leftPosition = this.parentOrbiterSize / 4
+    let topPosition = 0
+    let leftPosition = 0
+    if (this.isStar) {
+      topPosition = (this.orbiterSize / 2) * -1
+      leftPosition = topPosition
+    }
+    else {
+      topPosition = this.parentOrbiterSize / 4 - this.position * this.orbiterSize
+      leftPosition = this.parentOrbiterSize / 4
+    }
+
     orbiterElement.style.top = `${topPosition}px`
     orbiterElement.style.left = `${leftPosition}px`
-
-    this.animate(orbiterElement)
   }
 
   private setOrbiterSize(orbiterElement: any) {
@@ -70,18 +90,17 @@ export class OrbiterComponent implements OnInit {
   }
 
   private translateMetadata(): AnimationMetadata[] {
-    const translation = ((this.position + 1) * this.orbiterSize * 2) + this.parentOrbiterSize / 2
     const vel = this.position + 1 * 10
     return [
       animate(
         `${vel}s`,
         keyframes([
           style({
-            transform: `rotate(0deg) translateY(${translation}px)`,
+            transform: `rotate(0deg) translateY(${this.pathRadius}px)`,
             offset: 0
           }),
           style({
-            transform: `rotate(360deg) translateY(${translation}px)`,
+            transform: `rotate(360deg) translateY(${this.pathRadius}px)`,
             offset: 1
           })
         ])
