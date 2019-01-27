@@ -1,7 +1,12 @@
 <div class="orbiter">
-  <div class="label">{{depth}}</div>
+  <div class="label">{{ orbiter.name }}</div>
 
-  <ng-container *ngFor="let child of orbiter.children; let i = index">
-    <nb-lv-orbiter [orbiter]="child" [position]="i" [depth]="depth + 1" [starSize]="starSize"></nb-lv-orbiter>
+  <ng-container *ngFor="let child of orbiter.children; let position = index">
+    <nb-lv-orbiter
+      [orbiter]="child"
+      [position]="position"
+      [depth]="depth + 1"
+      [starSize]="starSize"
+    ></nb-lv-orbiter>
   </ng-container>
 </div>

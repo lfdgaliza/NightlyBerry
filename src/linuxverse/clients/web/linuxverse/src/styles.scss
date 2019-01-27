@@ -1,17 +1,15 @@
-html{
-    background-color: #333;
+html {
+  background-color: #333;
 }
 
 .orbiter {
-    width: 1px;
-    height: 1px;
-    border-radius: 50%;
-    background-color: lightblue;
-    position: relative;
-    top: 50px;
+  width: 0px;
+  height: 0px;
+  border-radius: 50%;
+  background-color: lightblue;
+  position: relative;
 }
 
 .label {
-    position: absolute;
+  position: absolute;
 }
-
