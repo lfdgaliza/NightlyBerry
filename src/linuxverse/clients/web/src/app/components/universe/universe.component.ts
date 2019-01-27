@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Orbiter } from 'src/app/services/models/orbiter';
+import { Component, Input, OnInit } from '@angular/core'
+import { Orbiter } from 'src/app/services/models/orbiter.model'
 
 @Component({
   selector: 'nb-lv-universe',
@@ -9,7 +9,7 @@ import { Orbiter } from 'src/app/services/models/orbiter';
 export class UniverseComponent implements OnInit {
 
   @Input() rootOrbiter: Orbiter
-  
+
   constructor() { }
 
   ngOnInit() {

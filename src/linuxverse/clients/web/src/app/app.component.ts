@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 
-import { Orbiter } from './services/models/orbiter'
+import { Orbiter } from './services/models/orbiter.model'
 
 @Component({
   selector: "nb-lv-root",
