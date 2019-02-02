@@ -1,7 +1,7 @@
 import 'src/app/services/extensions/number-extensions'
 
 import { animate, AnimationBuilder, AnimationMetadata, AnimationPlayer, keyframes, style } from '@angular/animations'
-import { Component, ElementRef, Input, OnInit } from '@angular/core'
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Orbiter } from 'src/app/services/models/orbiter.model'
 import { SizingService } from 'src/app/services/sizing.service'
 
@@ -15,6 +15,12 @@ export class OrbiterComponent implements OnInit {
   @Input() position: number
   @Input() depth: number
   @Input() starSize: number
+
+  @Output() spaceCalculated = new EventEmitter<number>();
+
+  onSpaceCalculated(space: number) {
+
+  }
 
   private isStar: boolean
 
@@ -38,7 +44,7 @@ export class OrbiterComponent implements OnInit {
 
     if (!this.isStar) {
       this.configurePath()
-      this.animate(orbiterElement)
+      //this.animate(orbiterElement)
     }
   }
 
@@ -94,7 +100,14 @@ export class OrbiterComponent implements OnInit {
 
   private translateMetadata(): AnimationMetadata[] {
     const vel = this.position + 1 * 10
-    const pathRadius = this.sizingService.calculatePathRadius(this.starSize, this.depth, this.position)
+    let pathRadius = this.sizingService.calculatePathRadius(this.starSize, this.depth, this.position)
+
+    if (this.orbiter.children.length > 0) {
+      const childrenPathRadius = this.sizingService.calculatePathRadius(this.starSize, this.depth + 1, this.orbiter.children.length - 1)
+      pathRadius += childrenPathRadius
+    }
+
+    this.spaceCalculated.emit(pathRadius)
 
     return [
       animate(
