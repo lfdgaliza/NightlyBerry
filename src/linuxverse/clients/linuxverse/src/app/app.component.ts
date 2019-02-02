@@ -8,15 +8,28 @@ import { Orbiter } from './services/models/orbiter.model'
   styleUrls: ["./app.component.scss"]
 })
 export class AppComponent {
-  star: Orbiter = new Orbiter(Guid.newGuid(), "sun", [
-    new Orbiter(Guid.newGuid(), "Mercury"),
-    new Orbiter(Guid.newGuid(), "Venus"),
-    new Orbiter(Guid.newGuid(), "Earth", [
-      new Orbiter(Guid.newGuid(), "Satellite"),
-      new Orbiter(Guid.newGuid(), "Moon")
-    ]),
-    new Orbiter(Guid.newGuid(), "Mars")
-  ]);
+  star: Orbiter
+
+  constructor() {
+    const mercury = new Orbiter("Mercury")
+    const venus = new Orbiter("Venus")
+
+    const satellite1 = new Orbiter("Satellite 1")
+    const satellite2 = new Orbiter("Satellite 2")
+    const earth = new Orbiter("Earth")
+    earth.add(satellite1)
+    earth.add(satellite2)
+
+    const mars = new Orbiter("Mars")
+    const jupiter = new Orbiter("Jupiter")
+
+    const sun = new Orbiter("Sun")
+    sun.add(mercury)
+    sun.add(venus)
+    sun.add(earth)
+    sun.add(mars)
+    sun.add(jupiter)
+  }
 }
 
 class Guid {
