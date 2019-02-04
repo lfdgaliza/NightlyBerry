@@ -22,6 +22,14 @@ export class Orbiter {
             : this._parent.children
     }
 
+    get isStar(): boolean {
+        return this._parent === undefined
+    }
+
+    get parent() {
+        return this._parent
+    }
+
     public getSize(startSize: number, factor: number): number {
         if (this._parent === undefined)
             return startSize
@@ -63,7 +71,7 @@ export class Orbiter {
     public add(child: Orbiter) {
         child._parent = this
         child._position = this.children.length + 1
-        this._children = new Array<Orbiter>()
+        this._children.push(child)
     }
 
     constructor(name: String) {

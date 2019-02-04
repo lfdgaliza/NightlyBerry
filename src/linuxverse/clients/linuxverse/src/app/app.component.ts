@@ -29,6 +29,8 @@ export class AppComponent {
     sun.add(earth)
     sun.add(mars)
     sun.add(jupiter)
+
+    this.star = sun
   }
 }
 

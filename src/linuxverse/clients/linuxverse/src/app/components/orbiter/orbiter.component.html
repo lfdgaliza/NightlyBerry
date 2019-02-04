@@ -4,9 +4,8 @@
     <ng-container *ngFor="let child of orbiter.children; let position = index">
         <nb-lv-orbiter
             [orbiter]="child"
-            [position]="position"
-            [depth]="depth + 1"
             [starSize]="starSize"
+            [factor]="factor"
         ></nb-lv-orbiter>
     </ng-container>
 </div>
