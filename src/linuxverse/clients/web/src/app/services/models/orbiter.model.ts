@@ -1,11 +1,29 @@
-export class Orbiter {
-    id: string
-    name: string
-    children: Array<Orbiter>
+import { Orb } from './orb.model';
+import { Star } from './star.model';
 
-    constructor(id: string, name: string, children: Array<Orbiter> = new Array<Orbiter>()) {
-        this.id = id
-        this.name = name
-        this.children = children
+export class Orbiter extends Orb
+{
+    public parent: Orb
+
+    public refreshSize()
+    {
+        if (this.star === undefined)
+        {
+            console.warn("The orbiter must be attached to a star before refreshing its size.")
+            return
+        }
+
+        this._size = this.star.size / (this._depth + 1)
+        this.children.forEach(child => child.refreshSize())
+    }
+
+    private get star()
+    {
+        let orb: Orb = this.parent;
+        while (orb && !(orb instanceof Star))
+        {
+            orb = (<Orbiter>orb).parent;
+        }
+        return orb;
     }
 }
