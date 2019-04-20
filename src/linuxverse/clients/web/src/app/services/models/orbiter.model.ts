@@ -3,12 +3,25 @@ import { Star } from './star.model';
 
 export class Orbiter extends Orb
 {
+    private _parent: Orb
+
     constructor(id: string, name: string)
     {
         super(id, name)
     }
 
-    public parent: Orb
+    public setParent(parent: Orb): void
+    {
+        if (this._parent !== undefined)
+            throw new Error(`You cannot set the parent Orb twice. Orb name: ${this.name}`)
+
+        this._parent = parent
+    }
+
+    public get parent(): Orb
+    {
+        return this._parent
+    }
 
     public calculateSizeRecursively()
     {
