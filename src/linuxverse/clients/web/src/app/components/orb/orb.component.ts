@@ -56,8 +56,6 @@ export class OrbComponent implements OnInit
 
   configurePath(): any
   {
-    console.log(this.orb)
-
     const orbiterPathElement = this.el.nativeElement.children[1]
     const pathRadius = this.sizingService.calculatePathRadius(this.position, (<Orbiter>this.orb))
 

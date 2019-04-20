@@ -39,7 +39,8 @@ export abstract class Orb
     public addChild(newChild: Orbiter): void
     {
         newChild.parent = this
-        newChild.defineSizeIncludingAllChildren()
+        newChild.calculateDepthRecursively()
+        newChild.calculateSizeRecursively()
         this.children.push(newChild)
     }
 }

@@ -25,7 +25,6 @@ export class AppComponent implements OnInit
 
     star.addChild(new Orbiter(Guid.newGuid(), "Mars"))
 
-    console.log(star)
     this.star = star
   }
 }
