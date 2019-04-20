@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Orbiter } from './services/models/orbiter.model';
-import { Star } from './services/models/star.model';
+import { Orbiter } from './models/orbiter.model';
+import { Star } from './models/star.model';
 
 @Component({
-  selector: "nb-lv-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  selector: 'nb-lv-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.less']
 })
 export class AppComponent implements OnInit
 {

@@ -14,7 +14,8 @@ export class Star extends Orb
     {
         newChild.parent = this
         newChild.defineDepthIncludingAllChildren()
-        newChild.defineSizeIncludingAllChildren()
+        //newChild.defineSizeIncludingAllChildren()
+
         this.children.push(newChild)
     }
 }

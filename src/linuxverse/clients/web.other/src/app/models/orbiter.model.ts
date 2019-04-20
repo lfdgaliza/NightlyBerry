@@ -12,7 +12,7 @@ export class Orbiter extends Orb
 
     public defineSizeIncludingAllChildren()
     {
-        this.requireStar('The orbiter must be attached to a star before definig its size')
+        this.requireStar(this.defineDepthIncludingAllChildren.name)
 
         this._size = this.star.size / (this._depth + 1)
         this.children.forEach(child => child.defineSizeIncludingAllChildren())
@@ -20,19 +20,18 @@ export class Orbiter extends Orb
 
     public defineDepthIncludingAllChildren()
     {
-        this.requireStar('The orbiter must be attached to a star before definig its depth')
+        this.requireStar(this.defineDepthIncludingAllChildren.name)
 
         this._depth = this.parent.depth + 1
-        this.children.forEach(child => child.defineDepthIncludingAllChildren())
     }
 
-    private requireStar(message: string): void
+    private requireStar(actionName: string): void
     {
         if (this.star === undefined)
-            throw new Error(message)
+            throw new Error(`The orbiter must be attached to a star before executing ${actionName}.`)
     }
 
-    public get star(): Orb
+    private get star(): Orb
     {
         let orb: Orb = this.parent;
         while (orb && !(orb instanceof Star))

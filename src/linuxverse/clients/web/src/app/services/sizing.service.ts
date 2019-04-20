@@ -1,21 +1,19 @@
-import { Injectable } from '@angular/core'
+import { Injectable } from '@angular/core';
+
+import { Orbiter } from './models/orbiter.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SizingService {
+export class SizingService
+{
 
   constructor() { }
 
-  calculateOrbiterSize(starSize: number, depth: number): number {
-    return depth == 0
-      ? starSize
-      : starSize / (depth + 1)
-  }
-
-  calculatePathRadius(starSize: number, depth: number, position: number) {
-    const orbiterSize = this.calculateOrbiterSize(starSize, depth)
-    const parentOrbiterSize = this.calculateOrbiterSize(starSize, depth - 1)
+  calculatePathRadius(position: number, orbiter: Orbiter)
+  {
+    const orbiterSize = orbiter.size
+    const parentOrbiterSize = orbiter.parent.size
 
     const radius = ((position + 1) * orbiterSize * 1.2) + parentOrbiterSize / 2
 

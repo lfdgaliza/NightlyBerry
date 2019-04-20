@@ -3,19 +3,19 @@ import 'src/app/services/extensions/number-extensions';
 import { animate, AnimationBuilder, AnimationMetadata, AnimationPlayer, keyframes, style } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Orb } from 'src/app/services/models/orb.model';
+import { Orbiter } from 'src/app/services/models/orbiter.model';
 import { SizingService } from 'src/app/services/sizing.service';
 
 @Component({
-  selector: "nb-lv-orbiter",
-  templateUrl: "./orbiter.component.html",
-  styleUrls: ["./orbiter.component.scss"]
+  selector: "nb-lv-orb",
+  templateUrl: "./orb.component.html",
+  styleUrls: ["./orb.component.scss"]
 })
-export class OrbiterComponent implements OnInit
+export class OrbComponent implements OnInit
 {
-  @Input() orbiter: Orb
+  @Input() orb: Orb
   @Input() position: number
   @Input() depth: number
-  @Input() starSize: number
 
   @Output() spaceCalculated = new EventEmitter<number>();
 
@@ -56,14 +56,15 @@ export class OrbiterComponent implements OnInit
 
   configurePath(): any
   {
-    const orbiterSize = this.sizingService.calculateOrbiterSize(this.starSize, this.depth)
+    console.log(this.orb)
+
     const orbiterPathElement = this.el.nativeElement.children[1]
-    const pathRadius = this.sizingService.calculatePathRadius(this.starSize, this.depth, this.position)
+    const pathRadius = this.sizingService.calculatePathRadius(this.position, (<Orbiter>this.orb))
 
     orbiterPathElement.style.height = (pathRadius * 2).toPxString()
     orbiterPathElement.style.width = (pathRadius * 2).toPxString()
-    orbiterPathElement.style.top = ((pathRadius - orbiterSize) * -1).toPxString()
-    orbiterPathElement.style.left = ((pathRadius - orbiterSize) * -1).toPxString()
+    orbiterPathElement.style.top = ((pathRadius - this.orb.size) * -1).toPxString()
+    orbiterPathElement.style.left = ((pathRadius - this.orb.size) * -1).toPxString()
   }
 
   private setOrbiterPosition(orbiterElement: any)
@@ -71,8 +72,7 @@ export class OrbiterComponent implements OnInit
     let topPosition = 0
     let leftPosition = 0
 
-    const orbiterSize = this.sizingService.calculateOrbiterSize(this.starSize, this.depth)
-    const parentOrbiterSize = this.sizingService.calculateOrbiterSize(this.starSize, this.depth - 1)
+    const orbiterSize = this.orb.size
 
     if (this.isStar)
     {
@@ -81,8 +81,8 @@ export class OrbiterComponent implements OnInit
     }
     else
     {
-      topPosition = parentOrbiterSize / 4 - this.position * orbiterSize
-      leftPosition = parentOrbiterSize / 4
+      topPosition = (<Orbiter>this.orb).parent.size / 4 - this.position * orbiterSize
+      leftPosition = (<Orbiter>this.orb).parent.size / 4
     }
 
     orbiterElement.style.top = topPosition.toPxString()
@@ -91,7 +91,7 @@ export class OrbiterComponent implements OnInit
 
   private setOrbiterSize(orbiterElement: any)
   {
-    const orbiterSize = this.sizingService.calculateOrbiterSize(this.starSize, this.depth).toPxString()
+    const orbiterSize = this.orb.size.toPxString()
     orbiterElement.style.height = orbiterSize
     orbiterElement.style.width = orbiterSize
   }
@@ -115,11 +115,11 @@ export class OrbiterComponent implements OnInit
   private translateMetadata(): AnimationMetadata[]
   {
     const vel = this.position + 1 * 10
-    let pathRadius = this.sizingService.calculatePathRadius(this.starSize, this.depth, this.position)
+    let pathRadius = this.sizingService.calculatePathRadius(this.position, (<Orbiter>this.orb))
 
-    if (this.orbiter.children.length > 0)
+    if (this.orb.children.length > 0)
     {
-      const childrenPathRadius = this.sizingService.calculatePathRadius(this.starSize, this.depth + 1, this.orbiter.children.length - 1)
+      const childrenPathRadius = this.sizingService.calculatePathRadius(this.orb.children.length - 1, (<Orbiter>this.orb))
       pathRadius += childrenPathRadius
     }
 
