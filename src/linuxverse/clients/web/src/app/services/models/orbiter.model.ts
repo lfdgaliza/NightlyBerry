@@ -10,17 +10,27 @@ export class Orbiter extends Orb
         super(id, name)
     }
 
-    public setParent(parent: Orb): void
+    public get parent(): Orb
+    {
+        return this._parent
+    }
+
+    public get star(): Orb
+    {
+        let orb: Orb = this.parent;
+        while (orb && !(orb instanceof Star))
+        {
+            orb = (<Orbiter>orb).parent;
+        }
+        return orb;
+    }
+
+    public defineParent(parent: Orb): void
     {
         if (this._parent !== undefined)
             throw new Error(`You cannot set the parent Orb twice. Orb name: ${this.name}`)
 
         this._parent = parent
-    }
-
-    public get parent(): Orb
-    {
-        return this._parent
     }
 
     public calculateSizeRecursively()
@@ -45,13 +55,5 @@ export class Orbiter extends Orb
             throw new Error(errorMessage)
     }
 
-    public get star(): Orb
-    {
-        let orb: Orb = this.parent;
-        while (orb && !(orb instanceof Star))
-        {
-            orb = (<Orbiter>orb).parent;
-        }
-        return orb;
-    }
+
 }
