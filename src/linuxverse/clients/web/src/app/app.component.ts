@@ -15,15 +15,14 @@ export class AppComponent implements OnInit
   ngOnInit(): void
   {
     const star = new Star(Guid.newGuid(), "Sun", 50)
-    star.addChild(new Orbiter(Guid.newGuid(), "Mercury"))
-    star.addChild(new Orbiter(Guid.newGuid(), "Venus"))
-
-    const earth = new Orbiter(Guid.newGuid(), "Earth")
-    star.addChild(earth)
-    earth.addChild(new Orbiter(Guid.newGuid(), "Satellite"))
-    earth.addChild(new Orbiter(Guid.newGuid(), "Moon"))
-
-    star.addChild(new Orbiter(Guid.newGuid(), "Mars"))
+    star.newChild(Guid.newGuid(), "Mercury")
+    star.newChild(Guid.newGuid(), "Venus")
+    
+    const earth = star.newChild(Guid.newGuid(), "Earth")
+    earth.newChild(Guid.newGuid(), "Satellite")
+    earth.newChild(Guid.newGuid(), "Moon")
+    
+    star.newChild(Guid.newGuid(), "Mars")
 
     this.star = star
   }
