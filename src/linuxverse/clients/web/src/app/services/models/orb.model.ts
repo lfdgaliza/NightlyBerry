@@ -9,13 +9,6 @@ export abstract class Orb
     private _name: string
     private _children: Array<Orbiter>
 
-    constructor(id: string, name: string)
-    {
-        this._id = id
-        this._name = name
-        this._children = new Array<Orbiter>()
-    }
-
     public get name(): string
     {
         return this._name
@@ -36,11 +29,17 @@ export abstract class Orb
         return this._depth
     }
 
-    public addChild(newChild: Orbiter): void
+    public newChild(id: string, name: string): Orbiter
     {
-        newChild.defineParent(this)
-        newChild.calculateDepthRecursively()
-        newChild.calculateSizeRecursively()
-        this.children.push(newChild)
+        const newChild = new Orbiter(id, name, this)
+        this._children.push(newChild)
+        return newChild
+    }
+
+    constructor(id: string, name: string)
+    {
+        this._id = id
+        this._name = name
+        this._children = new Array<Orbiter>()
     }
 }

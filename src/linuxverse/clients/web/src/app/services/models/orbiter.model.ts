@@ -5,11 +5,6 @@ export class Orbiter extends Orb
 {
     private _parent: Orb
 
-    constructor(id: string, name: string)
-    {
-        super(id, name)
-    }
-
     public get parent(): Orb
     {
         return this._parent
@@ -25,35 +20,21 @@ export class Orbiter extends Orb
         return orb;
     }
 
-    public defineParent(parent: Orb): void
+    private calculateDepth()
     {
-        if (this._parent !== undefined)
-            throw new Error(`You cannot set the parent Orb twice. Orb name: ${this.name}`)
-
-        this._parent = parent
-    }
-
-    public calculateSizeRecursively()
-    {
-        this.requireStar('The orbiter must be attached to a star before definig its size')
-
-        this._size = this.star.size / (this._depth + 1)
-        this.children.forEach(child => child.calculateSizeRecursively())
-    }
-
-    public calculateDepthRecursively()
-    {
-        this.requireStar('The orbiter must be attached to a star before definig its depth')
-
         this._depth = this.parent.depth + 1
-        this.children.forEach(child => child.calculateDepthRecursively())
     }
 
-    private requireStar(errorMessage: string): void
+    private calculateSize()
     {
-        if (this.star === undefined)
-            throw new Error(errorMessage)
+        this._size = this.star.size / (this._depth + 1)
     }
 
-
+    public constructor(id: string, name: string, parent: Orb)
+    {
+        super(id, name)
+        this._parent = parent
+        this.calculateDepth()
+        this.calculateSize()
+    }
 }
