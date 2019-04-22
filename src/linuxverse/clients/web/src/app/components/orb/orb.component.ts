@@ -2,8 +2,8 @@ import 'src/app/services/extensions/number-extensions';
 
 import { animate, AnimationBuilder, AnimationMetadata, AnimationPlayer, keyframes, style } from '@angular/animations';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Orb } from 'src/app/services/models/orb.model';
-import { Orbiter } from 'src/app/services/models/orbiter.model';
+import { Orb } from 'src/app/models/orb.model';
+import { Orbiter } from 'src/app/models/orbiter.model';
 import { SizingService } from 'src/app/services/sizing.service';
 
 @Component({
@@ -61,8 +61,8 @@ export class OrbComponent implements OnInit
 
     orbiterPathElement.style.height = (pathRadius * 2).toPxString()
     orbiterPathElement.style.width = (pathRadius * 2).toPxString()
-    orbiterPathElement.style.top = ((pathRadius - this.orb.size) * -1).toPxString()
-    orbiterPathElement.style.left = ((pathRadius - this.orb.size) * -1).toPxString()
+    orbiterPathElement.style.top = ((pathRadius - this.orb.getSize()) * -1).toPxString()
+    orbiterPathElement.style.left = ((pathRadius - this.orb.getSize()) * -1).toPxString()
   }
 
   private setOrbiterPosition(orbiterElement: any)
@@ -70,7 +70,7 @@ export class OrbComponent implements OnInit
     let topPosition = 0
     let leftPosition = 0
 
-    const orbiterSize = this.orb.size
+    const orbiterSize = this.orb.getSize()
 
     if (this.isStar)
     {
@@ -79,8 +79,8 @@ export class OrbComponent implements OnInit
     }
     else
     {
-      topPosition = (<Orbiter>this.orb).parent.size / 4 - this.position * orbiterSize
-      leftPosition = (<Orbiter>this.orb).parent.size / 4
+      topPosition = (<Orbiter>this.orb).parent.getSize() / 4 - this.position * orbiterSize
+      leftPosition = (<Orbiter>this.orb).parent.getSize() / 4
     }
 
     orbiterElement.style.top = topPosition.toPxString()
@@ -89,7 +89,7 @@ export class OrbComponent implements OnInit
 
   private setOrbiterSize(orbiterElement: any)
   {
-    const orbiterSize = this.orb.size.toPxString()
+    const orbiterSize = this.orb.getSize().toPxString()
     orbiterElement.style.height = orbiterSize
     orbiterElement.style.width = orbiterSize
   }

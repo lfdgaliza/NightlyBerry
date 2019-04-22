@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Orbiter } from './services/models/orbiter.model';
-import { Star } from './services/models/star.model';
+import { Orb } from './models/orb.model';
+import { Orbiter } from './models/orbiter.model';
+import { Star } from './models/star.model';
 
 @Component({
   selector: "nb-lv-root",
@@ -10,19 +11,19 @@ import { Star } from './services/models/star.model';
 })
 export class AppComponent implements OnInit
 {
-  public star: Star
+  public star: Orb
 
   ngOnInit(): void
   {
+    const earth = new Orbiter(Guid.newGuid(), "Earth")
+      .addChild(new Orbiter(Guid.newGuid(), "Satellite"))
+      .addChild(new Orbiter(Guid.newGuid(), "Moon"))
+
     const star = new Star(Guid.newGuid(), "Sun", 50)
-    star.newChild(Guid.newGuid(), "Mercury")
-    star.newChild(Guid.newGuid(), "Venus")
-    
-    const earth = star.newChild(Guid.newGuid(), "Earth")
-    earth.newChild(Guid.newGuid(), "Satellite")
-    earth.newChild(Guid.newGuid(), "Moon")
-    
-    star.newChild(Guid.newGuid(), "Mars")
+      .addChild(new Orbiter(Guid.newGuid(), "Mercury"))
+      .addChild(new Orbiter(Guid.newGuid(), "Venus"))
+      .addChild(earth as Orbiter)
+      .addChild(new Orbiter(Guid.newGuid(), "Mars"))
 
     this.star = star
   }

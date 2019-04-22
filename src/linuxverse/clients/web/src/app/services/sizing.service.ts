@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Orbiter } from './models/orbiter.model';
+import { Orbiter } from '../models/orbiter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class SizingService
 
   calculatePathRadius(position: number, orbiter: Orbiter)
   {
-    const orbiterSize = orbiter.size
-    const parentOrbiterSize = orbiter.parent.size
+    const orbiterSize = orbiter.getSize()
+    const parentOrbiterSize = orbiter.parent.getSize()
 
     const radius = ((position + 1) * orbiterSize * 1.2) + parentOrbiterSize / 2
 
