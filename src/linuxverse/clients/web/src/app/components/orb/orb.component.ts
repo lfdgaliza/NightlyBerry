@@ -1,9 +1,10 @@
 import 'src/app/services/extensions/number-extensions';
 
 import { animate, AnimationBuilder, AnimationMetadata, AnimationPlayer, keyframes, style } from '@angular/animations';
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
 import { Orb } from 'src/app/models/orb.model';
 import { Orbiter } from 'src/app/models/orbiter.model';
+import { Star } from 'src/app/models/star.model';
 import { SizingService } from 'src/app/services/sizing.service';
 
 @Component({
@@ -11,34 +12,17 @@ import { SizingService } from 'src/app/services/sizing.service';
   templateUrl: "./orb.component.html",
   styleUrls: ["./orb.component.scss"]
 })
-export class OrbComponent implements OnInit
+export class OrbComponent implements AfterViewInit
 {
   @Input() orb: Orb
   @Input() position: number
-  @Input() depth: number
 
   @Output() spaceCalculated = new EventEmitter<number>();
-
-  onSpaceCalculated(space: number)
-  {
-
-  }
-
-  private isStar: boolean
 
   constructor(
     private el: ElementRef,
     private builder: AnimationBuilder,
     private sizingService: SizingService) { }
-
-  ngOnInit(): void
-  {
-    if (this.depth === undefined)
-    {
-      this.depth = 0
-      this.isStar = true
-    }
-  }
 
   ngAfterViewInit()
   {
@@ -47,7 +31,7 @@ export class OrbComponent implements OnInit
     this.setOrbiterSize(orbiterElement)
     this.setOrbiterPosition(orbiterElement)
 
-    if (!this.isStar)
+    if (!(this.orb instanceof Star))
     {
       this.configurePath()
       this.animate(orbiterElement)
@@ -72,7 +56,7 @@ export class OrbComponent implements OnInit
 
     const orbiterSize = this.orb.getSize()
 
-    if (this.isStar)
+    if ((this.orb instanceof Star))
     {
       topPosition = (orbiterSize / 2) * -1
       leftPosition = topPosition

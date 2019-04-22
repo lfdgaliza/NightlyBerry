@@ -4,13 +4,9 @@
         <nb-lv-orb
             [orb]="child"
             [position]="position"
-            [depth]="depth + 1"
-            (spaceCalculated)="onSpaceCalculated($event)"
         ></nb-lv-orb>
     </ng-container>
 </div>
-
-
 <div
     class="orbiter-path"
     *ngIf="!isStar"
