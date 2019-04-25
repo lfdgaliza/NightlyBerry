@@ -4,7 +4,7 @@ export class Star extends Orb
 {
     private _size: number
 
-    public getSize(): number
+    public calculateSize(): number
     {
         return this._size
     }
@@ -13,5 +13,6 @@ export class Star extends Orb
     {
         super(id, name)
         this._size = size
+        this._position = 0
     }
 }

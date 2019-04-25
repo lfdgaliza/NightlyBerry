@@ -1,9 +1,8 @@
 <div class="orbiter">
     <div class="label">{{ orb.name }}</div>
-    <ng-container *ngFor="let child of orb.children; let position = index">
+    <ng-container *ngFor="let child of orb.children">
         <nb-lv-orb
             [orb]="child"
-            [position]="position"
         ></nb-lv-orb>
     </ng-container>
 </div>

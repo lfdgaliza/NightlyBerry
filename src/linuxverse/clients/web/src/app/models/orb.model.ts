@@ -5,11 +5,17 @@ export abstract class Orb
     protected _id: string
     protected _name: string
     protected _parent: Orb
+    protected _position: number
     protected _children: Array<Orbiter>
 
     public get parent(): Orb
     {
         return this._parent
+    }
+
+    public get position(): number
+    {
+        return this._position
     }
 
     public get children(): Array<Orbiter>
@@ -22,14 +28,7 @@ export abstract class Orb
         return this._name
     }
 
-    public abstract getSize(): number;
-
-    public addChild(child: Orbiter): Orb
-    {
-        child.setParent(this)
-        this._children.push(child)
-        return this
-    }
+    public abstract calculateSize(): number;
 
     public getFirstNode(): Orb
     {
@@ -45,6 +44,14 @@ export abstract class Orb
             return this._parent.getDepth(++depth)
 
         return depth
+    }
+
+    public addChild(child: Orbiter): Orb
+    {
+        child.setParent(this)
+        child._position = this._children.length
+        this._children.push(child)
+        return this
     }
 
     constructor(id: string, name: string)
