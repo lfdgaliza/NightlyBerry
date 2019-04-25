@@ -13,10 +13,10 @@ export class Orbiter extends Orb
         throw new Error(`The orbiter ${this._name} needs to be associated with a star before calculating its size`)
     }
 
-    public calculatePathRadius(position: number, orbiter: Orbiter)
+    public calculatePathRadius(position: number)
     {
-        const orbiterSize = orbiter.getSize()
-        const parentOrbiterSize = orbiter.parent.getSize()
+        const orbiterSize = this.getSize()
+        const parentOrbiterSize = this.parent.getSize()
 
         const radius = ((position + 1) * orbiterSize * 1.2) + parentOrbiterSize / 2
 

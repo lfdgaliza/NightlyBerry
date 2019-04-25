@@ -5,7 +5,6 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output } fro
 import { Orb } from 'src/app/models/orb.model';
 import { Orbiter } from 'src/app/models/orbiter.model';
 import { Star } from 'src/app/models/star.model';
-import { SizingService } from 'src/app/services/sizing.service';
 
 @Component({
   selector: "nb-lv-orb",
@@ -21,8 +20,7 @@ export class OrbComponent implements AfterViewInit
 
   constructor(
     private el: ElementRef,
-    private builder: AnimationBuilder,
-    private sizingService: SizingService) { }
+    private builder: AnimationBuilder) { }
 
   ngAfterViewInit()
   {
@@ -41,7 +39,7 @@ export class OrbComponent implements AfterViewInit
   configurePath(): any
   {
     const orbiterPathElement = this.el.nativeElement.children[1]
-    const pathRadius = this.sizingService.calculatePathRadius(this.position, (<Orbiter>this.orb))
+    const pathRadius = (<Orbiter>this.orb).calculatePathRadius(this.position)
 
     orbiterPathElement.style.height = (pathRadius * 2).toPxString()
     orbiterPathElement.style.width = (pathRadius * 2).toPxString()
@@ -97,11 +95,11 @@ export class OrbComponent implements AfterViewInit
   private translateMetadata(): AnimationMetadata[]
   {
     const vel = this.position + 1 * 10
-    let pathRadius = this.sizingService.calculatePathRadius(this.position, (<Orbiter>this.orb))
+    let pathRadius = (<Orbiter>this.orb).calculatePathRadius(this.position)
 
     if (this.orb.children.length > 0)
     {
-      const childrenPathRadius = this.sizingService.calculatePathRadius(this.orb.children.length - 1, (<Orbiter>this.orb))
+      const childrenPathRadius = (<Orbiter>this.orb).calculatePathRadius(this.orb.children.length - 1)
       pathRadius += childrenPathRadius
     }
 
