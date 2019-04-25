@@ -5,6 +5,7 @@ export abstract class Orb
     protected _id: string
     protected _name: string
     protected _parent: Orb
+    protected _previous: Orbiter
     protected _position: number
     protected _children: Array<Orbiter>
 
@@ -49,8 +50,14 @@ export abstract class Orb
     public addChild(child: Orbiter): Orb
     {
         child.setParent(this)
+        
         child._position = this._children.length
+        
+        if (this.children.length > 0)
+            child._previous = this.children[this.children.length - 1]
+        
         this._children.push(child)
+
         return this
     }
 

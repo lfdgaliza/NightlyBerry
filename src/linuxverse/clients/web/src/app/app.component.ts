@@ -24,6 +24,8 @@ export class AppComponent implements OnInit
       .addChild(new Orbiter(Guid.newGuid(), "Venus"))
       .addChild(earth as Orbiter)
       .addChild(new Orbiter(Guid.newGuid(), "Mars"))
+      .addChild(new Orbiter(Guid.newGuid(), "Jupiter"))
+      .addChild(new Orbiter(Guid.newGuid(), "Saturn"))
 
     this.star = star
   }
