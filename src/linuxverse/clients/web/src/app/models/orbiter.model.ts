@@ -7,7 +7,7 @@ export class Orbiter extends Orb
     {
         const parentPortionInMySide = orbiter.parent.calculateSize() / 2
         const multipliablePosition = orbiter.position + 1
-        const distanceFactorToKeep = 1.2
+        const distanceFactorToKeep = 1.1
 
         const radius = (multipliablePosition * orbiter.calculateSize() * distanceFactorToKeep) + parentPortionInMySide
 
