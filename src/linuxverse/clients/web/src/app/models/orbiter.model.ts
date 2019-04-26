@@ -3,12 +3,17 @@ import { Star } from './star.model';
 
 export class Orbiter extends Orb
 {
+    public get lastChild(): Orbiter
+    {
+        return this.children[this.children.length - 1]
+    }
+
     public static calculatePathRadius(orbiter: Orbiter)
     {
         let radius: number
         const distanceFactorToKeep = 1.1
         const parentPortionInMySide = orbiter.parent.calculateSize() / 2
-        
+
         if (orbiter.position === 0)
         {
             const multipliablePosition = orbiter.position + 1
@@ -20,13 +25,20 @@ export class Orbiter extends Orb
             radius = previousPathRadius + (orbiter.calculateSize() * distanceFactorToKeep)
         }
 
-        if (orbiter.children.length > 0)
-        {
-            const childrenPathRadius = this.calculatePathRadius(orbiter.children[orbiter.children.length - 1]);
-            return radius + childrenPathRadius;
-        }
+        if (orbiter.isFirstBorn)
+            return radius + orbiter.calculateChildrenRadius()
 
         return radius
+            + orbiter.calculateChildrenRadius()
+            + orbiter._previous.calculateChildrenRadius()
+    }
+
+    public calculateChildrenRadius()
+    {
+        if (this.children.length > 0)
+            return Orbiter.calculatePathRadius(this.lastChild)
+
+        return 0
     }
 
     public calculateSize(): number

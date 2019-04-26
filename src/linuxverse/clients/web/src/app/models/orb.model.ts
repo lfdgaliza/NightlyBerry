@@ -19,6 +19,11 @@ export abstract class Orb
         return this._position
     }
 
+    public get isFirstBorn(): boolean
+    {
+        return this._position == 0
+    }
+
     public get children(): Array<Orbiter>
     {
         return this._children
@@ -50,12 +55,12 @@ export abstract class Orb
     public addChild(child: Orbiter): Orb
     {
         child.setParent(this)
-        
+
         child._position = this._children.length
-        
+
         if (this.children.length > 0)
             child._previous = this.children[this.children.length - 1]
-        
+
         this._children.push(child)
 
         return this
