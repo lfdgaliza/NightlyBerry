@@ -15,9 +15,14 @@ export class AppComponent implements OnInit
 
   ngOnInit(): void
   {
+    const subMoon = new Orbiter(Guid.newGuid(), "Sub Moon")
+
     const earth = new Orbiter(Guid.newGuid(), "Earth")
-      .addChild(new Orbiter(Guid.newGuid(), "Satellite"))
-      .addChild(new Orbiter(Guid.newGuid(), "Moon"))
+      .addChild(new Orbiter(Guid.newGuid(), "Moon")
+        .addChild(subMoon) as Orbiter
+      )
+
+
 
     const star = new Star(Guid.newGuid(), "Sun", 50)
       .addChild(new Orbiter(Guid.newGuid(), "Mercury"))
@@ -26,6 +31,9 @@ export class AppComponent implements OnInit
       .addChild(new Orbiter(Guid.newGuid(), "Mars"))
       .addChild(new Orbiter(Guid.newGuid(), "Jupiter"))
       .addChild(new Orbiter(Guid.newGuid(), "Saturn"))
+      .addChild(new Orbiter(Guid.newGuid(), "Uranus"))
+      .addChild(new Orbiter(Guid.newGuid(), "Netun"))
+      .addChild(new Orbiter(Guid.newGuid(), "Pluto"))
 
     this.star = star
   }

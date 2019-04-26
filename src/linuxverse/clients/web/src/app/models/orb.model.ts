@@ -14,6 +14,11 @@ export abstract class Orb
         return this._parent
     }
 
+    public get previous(): Orb
+    {
+        return this._previous
+    }
+
     public get position(): number
     {
         return this._position
@@ -34,7 +39,7 @@ export abstract class Orb
         return this._name
     }
 
-    public abstract calculateSize(): number;
+    public abstract calculateSize(marginFactor: number): number;
 
     public getFirstNode(): Orb
     {

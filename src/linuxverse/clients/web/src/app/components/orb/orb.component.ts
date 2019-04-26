@@ -1,7 +1,7 @@
 import 'src/app/services/extensions/number-extensions';
 
 import { animate, AnimationBuilder, AnimationMetadata, AnimationPlayer, keyframes, style } from '@angular/animations';
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
 import { Orb } from 'src/app/models/orb.model';
 import { Orbiter } from 'src/app/models/orbiter.model';
 import { Star } from 'src/app/models/star.model';
@@ -14,6 +14,7 @@ import { Star } from 'src/app/models/star.model';
 export class OrbComponent implements AfterViewInit
 {
   @Input() orb: Orb
+  marginFactor: number = 1.1
 
   constructor(
     private el: ElementRef,
@@ -36,13 +37,14 @@ export class OrbComponent implements AfterViewInit
   configurePath(): any
   {
     const orbiterPathElement = this.el.nativeElement.children[1]
-    const pathRadius = Orbiter.calculatePathRadius(this.orb as Orbiter)
-    const thisOrbSize = this.orb.calculateSize()
+    const pathRadius = Orbiter.calculatePathRadius(this.orb as Orbiter, this.marginFactor)
+    const pathDiameter = 2 * pathRadius
+    const topLeft = pathRadius - this.orb.parent.calculateSize(this.marginFactor) / 2
 
-    orbiterPathElement.style.height = (pathRadius * 2).toPxString()
-    orbiterPathElement.style.width = (pathRadius * 2).toPxString()
-    orbiterPathElement.style.top = ((pathRadius - thisOrbSize) * -1).toPxString()
-    orbiterPathElement.style.left = ((pathRadius - thisOrbSize) * -1).toPxString()
+    orbiterPathElement.style.height = pathDiameter.toPxString()
+    orbiterPathElement.style.width = pathDiameter.toPxString()
+    orbiterPathElement.style.top = (topLeft * -1).toPxString()
+    orbiterPathElement.style.left = (topLeft * -1).toPxString()
   }
 
   private setOrbiterPosition(orbiterElement: any)
@@ -50,7 +52,7 @@ export class OrbComponent implements AfterViewInit
     let topPosition = 0
     let leftPosition = 0
 
-    const orbiterSize = this.orb.calculateSize()
+    const orbiterSize = this.orb.calculateSize(this.marginFactor)
 
     if ((this.orb instanceof Star))
     {
@@ -59,8 +61,8 @@ export class OrbComponent implements AfterViewInit
     }
     else
     {
-      topPosition = (<Orbiter>this.orb).parent.calculateSize() / 4 - this.orb.position * orbiterSize
-      leftPosition = (<Orbiter>this.orb).parent.calculateSize() / 4
+      topPosition = orbiterSize / 2 - this.orb.position * orbiterSize
+      leftPosition = orbiterSize / 2
     }
 
     orbiterElement.style.top = topPosition.toPxString()
@@ -69,7 +71,7 @@ export class OrbComponent implements AfterViewInit
 
   private setOrbiterSize(orbiterElement: any)
   {
-    const orbiterSize = this.orb.calculateSize().toPxString()
+    const orbiterSize = this.orb.calculateSize(this.marginFactor).toPxString()
     orbiterElement.style.height = orbiterSize
     orbiterElement.style.width = orbiterSize
   }
@@ -93,7 +95,7 @@ export class OrbComponent implements AfterViewInit
   private translateMetadata(): AnimationMetadata[]
   {
     const vel = this.orb.position + 1 * 10
-    const pathRadius = Orbiter.calculatePathRadius(this.orb as Orbiter);
+    const pathRadius = Orbiter.calculatePathRadius(this.orb as Orbiter, this.marginFactor);
 
     return [
       animate(
@@ -104,7 +106,7 @@ export class OrbComponent implements AfterViewInit
             offset: 0
           }),
           style({
-            transform: `rotate(360deg) translateY(${pathRadius.toPxString()})`,
+            transform: `rotate(0deg) translateY(${pathRadius.toPxString()})`,
             offset: 1
           })
         ])

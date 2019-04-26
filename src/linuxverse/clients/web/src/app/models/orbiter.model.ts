@@ -8,39 +8,38 @@ export class Orbiter extends Orb
         return this.children[this.children.length - 1]
     }
 
-    public static calculatePathRadius(orbiter: Orbiter)
+    public static calculatePathRadius(orbiter: Orbiter, marginFactor: number)
     {
-        const distanceFactorToKeep = 1.1
-        const parentPortionInMySide = orbiter.parent.calculateSize() / 2
+        const parentPortionInMySide = orbiter.parent.calculateSize(marginFactor) / 2
 
         if (orbiter.isFirstBorn)
         {
             const multipliablePosition = orbiter.position + 1
-            return (multipliablePosition * orbiter.calculateSize(distanceFactorToKeep))
+            return (multipliablePosition * orbiter.calculateSize(marginFactor))
                 + parentPortionInMySide
-                + orbiter.calculateChildrenRadius()
+                + orbiter.calculateChildrenRadius(marginFactor)
         }
 
-        const previousPathRadius = Orbiter.calculatePathRadius(orbiter._previous)
+        const previousPathRadius = Orbiter.calculatePathRadius(orbiter._previous, marginFactor)
         return previousPathRadius
-            + (orbiter.calculateSize(distanceFactorToKeep))
-            + orbiter.calculateChildrenRadius()
-            + orbiter._previous.calculateChildrenRadius()
+            + (orbiter.calculateSize(marginFactor))
+            + orbiter.calculateChildrenRadius(marginFactor)
+            + orbiter._previous.calculateChildrenRadius(marginFactor)
     }
 
-    public calculateChildrenRadius()
+    public calculateChildrenRadius(marginFactor: number)
     {
         if (this.children.length > 0)
-            return Orbiter.calculatePathRadius(this.lastChild)
+            return Orbiter.calculatePathRadius(this.lastChild, marginFactor)
 
         return 0
     }
 
-    public calculateSize(marginFactor: number = 1): number
+    public calculateSize(marginFactor: number): number
     {
         const firstNode = this.getFirstNode()
 
-        const size = firstNode.calculateSize()
+        const size = firstNode.calculateSize(marginFactor)
         const depthStartingWithOne = 1 + this.getDepth()
 
         if (firstNode instanceof Star)
