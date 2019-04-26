@@ -106,7 +106,7 @@ export class OrbComponent implements AfterViewInit
             offset: 0
           }),
           style({
-            transform: `rotate(0deg) translateY(${pathRadius.toPxString()})`,
+            transform: `rotate(360deg) translateY(${pathRadius.toPxString()})`,
             offset: 1
           })
         ])
