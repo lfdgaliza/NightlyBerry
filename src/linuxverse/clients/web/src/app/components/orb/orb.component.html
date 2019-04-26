@@ -1,9 +1,7 @@
 <div class="orbiter">
-    <div class="label">{{ orb.name }}</div>
-    <ng-container *ngFor="let child of orb.children">
-        <nb-lv-orb
-            [orb]="child"
-        ></nb-lv-orb>
+    <div class="label">{{ orbiter.name }}</div>
+    <ng-container *ngFor="let child of orbiter.children">
+        <nb-lv-orb [orbiter]="child"></nb-lv-orb>
     </ng-container>
 </div>
 <div
