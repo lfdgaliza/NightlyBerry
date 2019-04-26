@@ -10,25 +10,20 @@ export class Orbiter extends Orb
 
     public static calculatePathRadius(orbiter: Orbiter)
     {
-        let radius: number
         const distanceFactorToKeep = 1.1
         const parentPortionInMySide = orbiter.parent.calculateSize() / 2
 
-        if (orbiter.position === 0)
+        if (orbiter.isFirstBorn)
         {
             const multipliablePosition = orbiter.position + 1
-            radius = (multipliablePosition * orbiter.calculateSize() * distanceFactorToKeep) + parentPortionInMySide
-        }
-        else
-        {
-            const previousPathRadius = Orbiter.calculatePathRadius(orbiter._previous)
-            radius = previousPathRadius + (orbiter.calculateSize() * distanceFactorToKeep)
+            return (multipliablePosition * orbiter.calculateSize(distanceFactorToKeep))
+                + parentPortionInMySide
+                + orbiter.calculateChildrenRadius()
         }
 
-        if (orbiter.isFirstBorn)
-            return radius + orbiter.calculateChildrenRadius()
-
-        return radius
+        const previousPathRadius = Orbiter.calculatePathRadius(orbiter._previous)
+        return previousPathRadius
+            + (orbiter.calculateSize(distanceFactorToKeep))
             + orbiter.calculateChildrenRadius()
             + orbiter._previous.calculateChildrenRadius()
     }
@@ -41,12 +36,15 @@ export class Orbiter extends Orb
         return 0
     }
 
-    public calculateSize(): number
+    public calculateSize(marginFactor: number = 1): number
     {
         const firstNode = this.getFirstNode()
 
+        const size = firstNode.calculateSize()
+        const depthStartingWithOne = 1 + this.getDepth()
+
         if (firstNode instanceof Star)
-            return firstNode.calculateSize() / (1 + this.getDepth())
+            return (size / depthStartingWithOne) * marginFactor
 
         throw new Error(`The orbiter ${this._name} needs to be associated with a star before calculating its size`)
     }
