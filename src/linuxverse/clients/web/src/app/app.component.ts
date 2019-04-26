@@ -32,7 +32,7 @@ export class AppComponent implements OnInit
       .addChild(new Orbiter(Guid.newGuid(), "Jupiter"))
       .addChild(new Orbiter(Guid.newGuid(), "Saturn"))
       .addChild(new Orbiter(Guid.newGuid(), "Uranus"))
-      .addChild(new Orbiter(Guid.newGuid(), "Netun"))
+      .addChild(new Orbiter(Guid.newGuid(), "Neptune"))
       .addChild(new Orbiter(Guid.newGuid(), "Pluto"))
 
     this.star = star
