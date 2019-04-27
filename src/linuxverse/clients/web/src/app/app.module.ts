@@ -4,11 +4,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { OrbComponent } from './components/orb/orb.component';
+import { WidgetsModule } from './widgets/widgets.module';
 
 @NgModule({
-  declarations: [AppComponent, OrbComponent],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    WidgetsModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

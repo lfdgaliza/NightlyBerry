@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Orbiter } from './models/orbiter.model';
+import { Orbiter } from './widgets/orbiter/orbiter';
 
 @Component({
-  selector: "nb-lv-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  selector: 'dg-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit
 {
   public star: Orbiter
-
+  
   ngOnInit(): void
   {
     // const subMoon = new Orbiter(Guid.newGuid(), "Sub Moon")

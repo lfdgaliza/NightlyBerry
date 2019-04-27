@@ -1,0 +1,10 @@
+<div class="orbiter">
+  <div class="label">{{ orbiter.name }}</div>
+  <ng-container *ngFor="let child of orbiter.children">
+      <dg-orbiter [orbiter]="child"></dg-orbiter>
+  </ng-container>
+</div>
+<div
+  class="orbiter-path"
+  *ngIf="!isStar"
+></div>

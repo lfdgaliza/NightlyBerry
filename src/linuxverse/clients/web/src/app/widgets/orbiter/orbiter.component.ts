@@ -1,25 +1,23 @@
-import 'src/app/services/extensions/number-extensions';
+import 'src/app/extensions/number-extensions';
 
 import { animate, AnimationBuilder, AnimationMetadata, AnimationPlayer, keyframes, style } from '@angular/animations';
 import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
-import { Orbiter } from 'src/app/models/orbiter.model';
+
+import { Orbiter } from './orbiter';
 
 @Component({
-  selector: "nb-lv-orb",
-  templateUrl: "./orb.component.html",
-  styleUrls: ["./orb.component.scss"]
+  selector: 'dg-orbiter',
+  templateUrl: './orbiter.component.html',
+  styleUrls: ['./orbiter.component.scss']
 })
-export class OrbComponent implements AfterViewInit
-{
-  @Input() orbiter: Orbiter
-
-  marginFactor: number = 1.1
-
+export class OrbiterComponent implements AfterViewInit {
   constructor(
     private el: ElementRef,
     private builder: AnimationBuilder) { }
 
-  ngAfterViewInit()
+  @Input() orbiter: Orbiter
+    
+  ngAfterViewInit(): void
   {
     const orbiterElement = this.el.nativeElement.firstChild
 
@@ -40,10 +38,10 @@ export class OrbComponent implements AfterViewInit
     const pathDiameter = 2 * pathRadius
     const topLeft = pathRadius - this.orbiter.parent.calculateSize() / 2
 
-    orbiterPathElement.style.height = pathDiameter.toPxString()
-    orbiterPathElement.style.width = pathDiameter.toPxString()
-    orbiterPathElement.style.top = (topLeft * -1).toPxString()
-    orbiterPathElement.style.left = (topLeft * -1).toPxString()
+    orbiterPathElement.style.height = pathDiameter.asPx()
+    orbiterPathElement.style.width = pathDiameter.asPx()
+    orbiterPathElement.style.top = (topLeft * -1).asPx()
+    orbiterPathElement.style.left = (topLeft * -1).asPx()
   }
 
   private setOrbiterPosition(orbiterElement: any)
@@ -64,13 +62,13 @@ export class OrbComponent implements AfterViewInit
       leftPosition = orbiterSize / 2
     }
 
-    orbiterElement.style.top = topPosition.toPxString()
-    orbiterElement.style.left = leftPosition.toPxString()
+    orbiterElement.style.top = topPosition.asPx()
+    orbiterElement.style.left = leftPosition.asPx()
   }
 
   private setOrbiterSize(orbiterElement: any)
   {
-    const orbiterSize = this.orbiter.calculateSize().toPxString()
+    const orbiterSize = this.orbiter.calculateSize().asPx()
     orbiterElement.style.height = orbiterSize
     orbiterElement.style.width = orbiterSize
   }
@@ -101,15 +99,16 @@ export class OrbComponent implements AfterViewInit
         `${vel}s`,
         keyframes([
           style({
-            transform: `rotate(0deg) translateY(${pathRadius.toPxString()})`,
+            transform: `rotate(0deg) translateY(${pathRadius.asPx()})`,
             offset: 0
           }),
           style({
-            transform: `rotate(360deg) translateY(${pathRadius.toPxString()})`,
+            transform: `rotate(360deg) translateY(${pathRadius.asPx()})`,
             offset: 1
           })
         ])
       )
     ]
   }
+
 }
