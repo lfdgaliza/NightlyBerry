@@ -35,43 +35,30 @@ export class OrbiterComponent implements AfterViewInit
   configurePath(): any
   {
     const orbiterPathElement = this.el.nativeElement.children[1]
-    const pathRadius = this.orbiter.calculatePathRadius()
-    const pathDiameter = 2 * pathRadius
-    const topLeft = pathRadius - this.orbiter.parent.calculateSize() / 2
 
-    orbiterPathElement.style.height = pathDiameter.asPx()
-    orbiterPathElement.style.width = pathDiameter.asPx()
-    orbiterPathElement.style.top = (topLeft * -1).asPx()
-    orbiterPathElement.style.left = (topLeft * -1).asPx()
+    const pathDiameter = 2 * this.orbiter.pathRadius
+    const topLeft = -1 * (this.orbiter.pathRadius - this.orbiter.parent.size / 2)
+
+    orbiterPathElement.style.height
+      = orbiterPathElement.style.width
+      = pathDiameter.asPx()
+
+    orbiterPathElement.style.top
+      = orbiterPathElement.style.left
+      = topLeft.asPx()
   }
 
   private setOrbiterPosition(orbiterElement: any)
   {
-    let topPosition = 0
-    let leftPosition = 0
-
-    const orbiterSize = this.orbiter.calculateSize()
-
-    if ((this.orbiter.isStar))
-    {
-      topPosition = (orbiterSize / 2) * -1
-      leftPosition = topPosition
-    }
-    else
-    {
-      topPosition = this.orbiter.calculateTopPosition()
-      leftPosition = this.orbiter.calculateLeftPosition()
-    }
-
-    orbiterElement.style.top = topPosition.asPx()
-    orbiterElement.style.left = leftPosition.asPx()
+    orbiterElement.style.top = this.orbiter.calculateTopPosition().asPx()
+    orbiterElement.style.left = this.orbiter.calculateLeftPosition().asPx()
   }
 
   private setOrbiterSize(orbiterElement: any)
   {
-    const orbiterSize = this.orbiter.calculateSize().asPx()
-    orbiterElement.style.height = orbiterSize
-    orbiterElement.style.width = orbiterSize
+    orbiterElement.style.height
+      = orbiterElement.style.width
+      = this.orbiter.size.asPx()
   }
 
   public animate(orbiterElement: any): void
@@ -92,19 +79,18 @@ export class OrbiterComponent implements AfterViewInit
 
   private translateMetadata(): AnimationMetadata[]
   {
-    const vel = this.orbiter.position + 1 * 10
-    const pathRadius = this.orbiter.calculatePathRadius()
+    const vel = (this.orbiter.position + 1) * 5
 
     return [
       animate(
         `${vel}s`,
         keyframes([
           style({
-            transform: `rotate(0deg) translateY(${pathRadius.asPx()})`,
+            transform: `rotate(0deg) translateY(${this.orbiter.pathRadius.asPx()})`,
             offset: 0
           }),
           style({
-            transform: `rotate(360deg) translateY(${pathRadius.asPx()})`,
+            transform: `rotate(360deg) translateY(${this.orbiter.pathRadius.asPx()})`,
             offset: 1
           })
         ])

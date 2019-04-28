@@ -13,11 +13,7 @@ export class Orbiter
     private _id: string
 
     private _name: string
-    public get name(): string
-    {
-
-        return this._name
-    }
+    public get name(): string { return this._name }
 
     private _position: number = 0
     // TODO: Protect this
@@ -27,6 +23,11 @@ export class Orbiter
     public get depth(): number { return this._depth }
 
     private _size: number
+    public get size(): number { return this._size }
+
+    private _pathRadius: number
+    public get pathRadius(): number { return this._pathRadius }
+
     private _childResizingRatePercent: number
 
     private _parent: Orbiter
@@ -57,9 +58,16 @@ export class Orbiter
 
     private updateMeasures(): void
     {
-        this.updateDepth()
         this.reflectChildResizingRatePercent()
+        this.updateDepth()
         this.updateSize()
+        this.updatePathRadius()
+    }
+
+    private reflectChildResizingRatePercent(): void
+    {
+        this._childResizingRatePercent = this.getChildResizingRatePercentFromLastParent()
+        this._children.forEach(c => c.reflectChildResizingRatePercent())
     }
 
     private updateDepth(): void
@@ -68,16 +76,24 @@ export class Orbiter
         this._children.forEach(c => c.updateDepth())
     }
 
-    private updateSize()
+    private updateSize(): void
     {
         this._size = this.calculateSize()
         this._children.forEach(c => c.updateSize())
     }
 
-    private reflectChildResizingRatePercent()
+    private updatePathRadius(): void
     {
-        this._childResizingRatePercent = this.getChildResizingRatePercentFromLastParent()
-        this._children.forEach(c => c.reflectChildResizingRatePercent())
+        this._pathRadius = this.calculatePathRadius()
+        this._children.forEach(c => c.updatePathRadius())
+    }
+
+    private getChildResizingRatePercentFromLastParent(): number
+    {
+        if (this.hasParent)
+            return this._parent.getChildResizingRatePercentFromLastParent()
+
+        return this._childResizingRatePercent
     }
 
     private calculateDepth(depth: number = 0): number
@@ -97,22 +113,13 @@ export class Orbiter
         return this._size
     }
 
-    private getChildResizingRatePercentFromLastParent(): number
-    {
-        if (this.hasParent)
-            return this._parent.getChildResizingRatePercentFromLastParent()
-
-        return this._childResizingRatePercent
-    }
-
     public calculatePathRadius()
     {
         const parentPortionInMySide = this.parent._size / 2
 
         if (this.hasPrevious)
         {
-            const previousPathRadius = this._previous.calculatePathRadius()
-            return previousPathRadius
+            return this._previous.calculatePathRadius()
                 + (this._size)
                 + this.calculateChildrenRadius()
                 + this._previous.calculateChildrenRadius()
@@ -126,6 +133,9 @@ export class Orbiter
 
     public calculateTopPosition()
     {
+        if (this.isStar)
+            return this.calculateLeftPosition()
+
         const first = this._size * this._position
         const second = (this.parent._size / 2) - this._size / 2
         const last = (first - second) * -1
@@ -134,7 +144,12 @@ export class Orbiter
 
     public calculateLeftPosition()
     {
-        return this._size / 2
+        const left = this._size / 2
+
+        if (this.isStar)
+            return left * -1
+
+        return left
     }
 
     private calculateChildrenRadius()
