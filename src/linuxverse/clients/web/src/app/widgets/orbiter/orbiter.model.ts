@@ -19,9 +19,6 @@ export class Orbiter
     // TODO: Protect this
     public get position(): number { return this._position }
 
-    private _depth: number = 0
-    public get depth(): number { return this._depth }
-
     private _size: number
     public get size(): number { return this._size }
 
@@ -33,15 +30,16 @@ export class Orbiter
     private _parent: Orbiter
     public get parent(): Orbiter { return this._parent }
     public get hasParent(): boolean { return this._parent !== undefined }
-    public get isStar(): boolean { return !this.hasParent }
+    private get isStar(): boolean { return !this.hasParent }
 
     private _previous: Orbiter
-    public get hasPrevious(): boolean { return this._previous !== undefined }
+    private get hasPrevious(): boolean { return this._previous !== undefined }
 
     private _children: Array<Orbiter>
+    // Used in html template
     public get children(): Array<Orbiter> { return this._children }
-    public get hasChildren(): boolean { return this._children.length > 0 }
-    public get lastChild(): Orbiter { return this._children[this._children.length - 1] }
+    private get hasChildren(): boolean { return this._children.length > 0 }
+    private get lastChild(): Orbiter { return this._children[this._children.length - 1] }
 
     public addChild(child: Orbiter): Orbiter
     {
@@ -59,7 +57,6 @@ export class Orbiter
     private updateMeasures(): void
     {
         this.reflectChildResizingRatePercent()
-        this.updateDepth()
         this.updateSize()
         this.updatePathRadius()
     }
@@ -68,12 +65,6 @@ export class Orbiter
     {
         this._childResizingRatePercent = this.getChildResizingRatePercentFromLastParent()
         this._children.forEach(c => c.reflectChildResizingRatePercent())
-    }
-
-    private updateDepth(): void
-    {
-        this._depth = this.calculateDepth()
-        this._children.forEach(c => c.updateDepth())
     }
 
     private updateSize(): void
@@ -96,16 +87,7 @@ export class Orbiter
         return this._childResizingRatePercent
     }
 
-    private calculateDepth(depth: number = 0): number
-    {
-        if (this.hasParent)
-            return this._parent.calculateDepth(++depth)
-
-        return depth
-    }
-
-    // TODO: Protect this
-    public calculateSize(): number
+    private calculateSize(): number
     {
         if (this.hasParent)
             return this._parent.calculateSize() * this._childResizingRatePercent
@@ -113,13 +95,13 @@ export class Orbiter
         return this._size
     }
 
-    public calculatePathRadius()
+    private calculatePathRadius()
     {
         const parentPortionInMySide = this.parent._size / 2
 
         if (this.hasPrevious)
         {
-            return this._previous.calculatePathRadius()
+            return this._previous._pathRadius
                 + (this._size)
                 + this.calculateChildrenRadius()
                 + this._previous.calculateChildrenRadius()
