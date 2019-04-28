@@ -1,25 +1,33 @@
 export class Orbiter
 {
-    constructor(id: string, name: string, size: number = 0)
+    constructor(id: string, name: string, size: number = 0, childResizingRatePercent = 1)
     {
         this._id = id
         this._name = name
         this._size = size
+        this._childResizingRatePercent = childResizingRatePercent
 
         this._children = new Array<Orbiter>()
     }
 
     private _id: string
-    
+
     private _name: string
-    public get name(): string { return this._name }
-    
+    public get name(): string
+    {
+
+        return this._name
+    }
+
     private _position: number = 0
     // TODO: Protect this
     public get position(): number { return this._position }
 
     private _depth: number = 0
-    private _size: number = 0
+    public get depth(): number { return this._depth }
+
+    private _size: number
+    private _childResizingRatePercent: number
 
     private _parent: Orbiter
     public get parent(): Orbiter { return this._parent }
@@ -38,11 +46,10 @@ export class Orbiter
     {
         child._parent = this
         child._position = this._children.length
-
-        if (this.hasChildren)
-            child._previous = this.lastChild
+        child._previous = this.lastChild
 
         child.updateMeasures()
+
         this._children.push(child)
 
         return this
@@ -51,6 +58,7 @@ export class Orbiter
     private updateMeasures(): void
     {
         this.updateDepth()
+        this.reflectChildResizingRatePercent()
         this.updateSize()
     }
 
@@ -66,6 +74,12 @@ export class Orbiter
         this._children.forEach(c => c.updateSize())
     }
 
+    private reflectChildResizingRatePercent()
+    {
+        this._childResizingRatePercent = this.getChildResizingRatePercentFromLastParent()
+        this._children.forEach(c => c.reflectChildResizingRatePercent())
+    }
+
     private calculateDepth(depth: number = 0): number
     {
         if (this.hasParent)
@@ -78,9 +92,17 @@ export class Orbiter
     public calculateSize(): number
     {
         if (this.hasParent)
-            return this._parent.calculateSize() / (this._depth + 1)
+            return this._parent.calculateSize() * this._childResizingRatePercent
 
         return this._size
+    }
+
+    private getChildResizingRatePercentFromLastParent(): number
+    {
+        if (this.hasParent)
+            return this._parent.getChildResizingRatePercentFromLastParent()
+
+        return this._childResizingRatePercent
     }
 
     public calculatePathRadius()
@@ -91,15 +113,28 @@ export class Orbiter
         {
             const previousPathRadius = this._previous.calculatePathRadius()
             return previousPathRadius
-                + (this.calculateSize())
+                + (this._size)
                 + this.calculateChildrenRadius()
                 + this._previous.calculateChildrenRadius()
         }
 
         const multipliablePosition = this._position + 1
-        return (multipliablePosition * this.calculateSize())
+        return (multipliablePosition * this._size)
             + parentPortionInMySide
             + this.calculateChildrenRadius()
+    }
+
+    public calculateTopPosition()
+    {
+        const first = this._size * this._position
+        const second = (this.parent._size / 2) - this._size / 2
+        const last = (first - second) * -1
+        return last
+    }
+
+    public calculateLeftPosition()
+    {
+        return this._size / 2
     }
 
     private calculateChildrenRadius()

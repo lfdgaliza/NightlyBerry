@@ -3,20 +3,21 @@ import 'src/app/extensions/number-extensions';
 import { animate, AnimationBuilder, AnimationMetadata, AnimationPlayer, keyframes, style } from '@angular/animations';
 import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
 
-import { Orbiter } from './orbiter';
+import { Orbiter } from './orbiter.model';
 
 @Component({
   selector: 'dg-orbiter',
   templateUrl: './orbiter.component.html',
   styleUrls: ['./orbiter.component.scss']
 })
-export class OrbiterComponent implements AfterViewInit {
+export class OrbiterComponent implements AfterViewInit
+{
   constructor(
     private el: ElementRef,
     private builder: AnimationBuilder) { }
 
   @Input() orbiter: Orbiter
-    
+
   ngAfterViewInit(): void
   {
     const orbiterElement = this.el.nativeElement.firstChild
@@ -58,8 +59,8 @@ export class OrbiterComponent implements AfterViewInit {
     }
     else
     {
-      topPosition = orbiterSize / 2 - this.orbiter.position * orbiterSize
-      leftPosition = orbiterSize / 2
+      topPosition = this.orbiter.calculateTopPosition()
+      leftPosition = this.orbiter.calculateLeftPosition()
     }
 
     orbiterElement.style.top = topPosition.asPx()

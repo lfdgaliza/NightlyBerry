@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Orbiter } from './widgets/orbiter/orbiter';
+import { Orbiter } from './widgets/orbiter/orbiter.model';
 
 @Component({
   selector: 'dg-root',
@@ -10,26 +10,22 @@ import { Orbiter } from './widgets/orbiter/orbiter';
 export class AppComponent implements OnInit
 {
   public star: Orbiter
-  
+
   ngOnInit(): void
   {
-    // const subMoon = new Orbiter(Guid.newGuid(), "Sub Moon")
-
     const earth = new Orbiter(Guid.newGuid(), "Earth")
-      .addChild(new Orbiter(Guid.newGuid(), "Moon")
-        //.addChild(subMoon)
-      )
+      .addChild(new Orbiter(Guid.newGuid(), "Moon"))
 
-    const star = new Orbiter(Guid.newGuid(), "Sun", 50)
+    const star = new Orbiter(Guid.newGuid(), "Sun", 50, .5)
       .addChild(new Orbiter(Guid.newGuid(), "Mercury"))
       .addChild(new Orbiter(Guid.newGuid(), "Venus"))
       .addChild(earth)
       .addChild(new Orbiter(Guid.newGuid(), "Mars"))
       .addChild(new Orbiter(Guid.newGuid(), "Jupiter"))
-    // .addChild(new Orbiter(Guid.newGuid(), "Saturn"))
-    // .addChild(new Orbiter(Guid.newGuid(), "Uranus"))
-    // .addChild(new Orbiter(Guid.newGuid(), "Neptune"))
-    // .addChild(new Orbiter(Guid.newGuid(), "Pluto"))
+      .addChild(new Orbiter(Guid.newGuid(), "Saturn"))
+      .addChild(new Orbiter(Guid.newGuid(), "Uranus"))
+      .addChild(new Orbiter(Guid.newGuid(), "Neptune"))
+      .addChild(new Orbiter(Guid.newGuid(), "Pluto"))
 
     this.star = star
   }
