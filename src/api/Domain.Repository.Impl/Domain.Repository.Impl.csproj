@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>DistroGuide.Domain.Repository.Impl</RootNamespace>
+    <AssemblyName>DistroGuide.Domain.Repository.Impl</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Infra.Repository\Infra.Repository.csproj" />
+    <ProjectReference Include="..\Domain.Repository\Domain.Repository.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Maps\" />
+  </ItemGroup>
+</Project>
