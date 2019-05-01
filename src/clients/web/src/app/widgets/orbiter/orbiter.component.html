@@ -1,5 +1,5 @@
 <div [ngClass]="{vacuum: orbiter.isStar}">
-  <div class="orbiter">
+  <div [ngClass]="{orbiter: true, 'star': orbiter.isStar}">
     <div class="label">{{ orbiter.name }}</div>
     <ng-container *ngFor="let child of orbiter.children">
       <dg-orbiter [orbiter]="child"></dg-orbiter>

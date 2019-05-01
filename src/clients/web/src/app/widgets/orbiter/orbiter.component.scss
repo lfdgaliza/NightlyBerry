@@ -1,9 +1,26 @@
+$fade: 20px;
+
 .orbiter {
     width: 0px;
     height: 0px;
     border-radius: 50%;
-    background-color: lightblue;
     position: relative;
+
+    background-color: lightblue;
+
+    $spread: -5px;
+    -webkit-box-shadow:0px 0px $fade $spread #00dfff ;
+    -moz-box-shadow:0px 0px $fade $spread #00dfff ;
+    box-shadow:0px 0px $fade $spread #00dfff ;
+}
+
+.star {
+    background-color: yellow;
+
+    $spread: 5px;
+    -webkit-box-shadow:0px 0px $fade $spread orange ;
+    -moz-box-shadow:0px 0px $fade $spread orange ;
+    box-shadow:0px 0px $fade $spread orange ;
 }
 
 .orbiter-path {
