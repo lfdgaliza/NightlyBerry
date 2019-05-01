@@ -24,6 +24,8 @@ export class Orbiter
 
     private _pathRadius: number
     public get pathRadius(): number { return this._pathRadius }
+    public get pathDiameter(): number { return this._pathRadius * 2 }
+    public get pathPosition(): number { return -1 * (this._pathRadius - this._parent._size / 2) }
 
     private _childResizingRatePercent: number
 

@@ -1,9 +1,22 @@
 <div [ngClass]="{vacuum: orbiter.isStar}">
-  <div [ngClass]="{orbiter: true, 'star': orbiter.isStar}">
-    <div class="label">{{ orbiter.name }}</div>
-    <ng-container *ngFor="let child of orbiter.children">
-      <dg-orbiter [orbiter]="child"></dg-orbiter>
-    </ng-container>
-  </div>
-  <div class="orbiter-path" *ngIf="!orbiter.isStar"></div>
+    <div
+        [ngClass]="{orbiter: true, 'star': orbiter.isStar}"
+        [style.width.px]="orbiter.size"
+        [style.height.px]="orbiter.size"
+        [style.top.px]="orbiter.calculateTopPosition()"
+        [style.left.px]="orbiter.calculateLeftPosition()"
+    >
+        <div class="label">{{ orbiter.name }}</div>
+        <ng-container *ngFor="let child of orbiter.children">
+            <dg-orbiter [orbiter]="child"></dg-orbiter>
+        </ng-container>
+    </div>
+    <div
+        class="orbiter-path"
+        *ngIf="!orbiter.isStar"
+        [style.width.px]="this.orbiter.pathDiameter"
+        [style.height.px]="this.orbiter.pathDiameter"
+        [style.top.px]="orbiter.pathPosition"
+        [style.left.px]="orbiter.pathPosition"
+    ></div>
 </div>

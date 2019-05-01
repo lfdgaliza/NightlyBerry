@@ -22,43 +22,8 @@ export class OrbiterComponent implements AfterViewInit
   {
     const orbiterElement = this.el.nativeElement.firstChild.firstChild
 
-    this.setOrbiterSize(orbiterElement)
-    this.setOrbiterPosition(orbiterElement)
-
     if (this.orbiter.hasParent)
-    {
-      this.configurePath()
       this.animate(orbiterElement)
-    }
-  }
-
-  configurePath(): any
-  {
-    const orbiterPathElement = this.el.nativeElement.firstChild.children[1]
-
-    const pathDiameter = 2 * this.orbiter.pathRadius
-    const topLeft = -1 * (this.orbiter.pathRadius - this.orbiter.parent.size / 2)
-
-    orbiterPathElement.style.height
-      = orbiterPathElement.style.width
-      = pathDiameter.asPx()
-
-    orbiterPathElement.style.top
-      = orbiterPathElement.style.left
-      = topLeft.asPx()
-  }
-
-  private setOrbiterPosition(orbiterElement: any)
-  {
-    orbiterElement.style.top = this.orbiter.calculateTopPosition().asPx()
-    orbiterElement.style.left = this.orbiter.calculateLeftPosition().asPx()
-  }
-
-  private setOrbiterSize(orbiterElement: any)
-  {
-    orbiterElement.style.height
-      = orbiterElement.style.width
-      = this.orbiter.size.asPx()
   }
 
   public animate(orbiterElement: any): void
