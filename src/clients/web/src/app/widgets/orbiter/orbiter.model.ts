@@ -30,7 +30,7 @@ export class Orbiter
     private _parent: Orbiter
     public get parent(): Orbiter { return this._parent }
     public get hasParent(): boolean { return this._parent !== undefined }
-    private get isStar(): boolean { return !this.hasParent }
+    public get isStar(): boolean { return !this.hasParent }
 
     private _previous: Orbiter
     private get hasPrevious(): boolean { return this._previous !== undefined }

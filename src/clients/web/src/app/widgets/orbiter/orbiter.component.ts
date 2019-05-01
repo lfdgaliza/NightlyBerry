@@ -20,7 +20,7 @@ export class OrbiterComponent implements AfterViewInit
 
   ngAfterViewInit(): void
   {
-    const orbiterElement = this.el.nativeElement.firstChild
+    const orbiterElement = this.el.nativeElement.firstChild.firstChild
 
     this.setOrbiterSize(orbiterElement)
     this.setOrbiterPosition(orbiterElement)
@@ -34,7 +34,7 @@ export class OrbiterComponent implements AfterViewInit
 
   configurePath(): any
   {
-    const orbiterPathElement = this.el.nativeElement.children[1]
+    const orbiterPathElement = this.el.nativeElement.firstChild.children[1]
 
     const pathDiameter = 2 * this.orbiter.pathRadius
     const topLeft = -1 * (this.orbiter.pathRadius - this.orbiter.parent.size / 2)
