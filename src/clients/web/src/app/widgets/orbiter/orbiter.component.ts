@@ -20,15 +20,18 @@ export class OrbiterComponent implements AfterViewInit
 
   ngAfterViewInit(): void
   {
-    const orbiterElement = this.el.nativeElement.firstChild.firstChild
+    const vacuum = this.el.nativeElement.firstChild
+    const orbiterElement = vacuum.firstChild
 
     if (this.orbiter.hasParent)
-      this.animate(orbiterElement)
+    {
+      this.animateOrbiter(orbiterElement)
+    }
   }
 
-  public animate(orbiterElement: any): void
+  public animateOrbiter(orbiterElement: any): void
   {
-    const factory = this.builder.build(this.translateMetadata())
+    const factory = this.builder.build(this.getOrbiterAnimationMetadata())
     const player = factory.create(orbiterElement)
     this.play(player)
   }
@@ -42,7 +45,7 @@ export class OrbiterComponent implements AfterViewInit
     })
   }
 
-  private translateMetadata(): AnimationMetadata[]
+  private getOrbiterAnimationMetadata(): AnimationMetadata[]
   {
     const vel = (this.orbiter.position + 1) * 5
 
@@ -51,12 +54,10 @@ export class OrbiterComponent implements AfterViewInit
         `${vel}s`,
         keyframes([
           style({
-            transform: `rotate(0deg) translateY(${this.orbiter.pathRadius.asPx()})`,
-            offset: 0
+            transform: `rotate(0deg) translateY(${this.orbiter.pathRadius.asPx()})`
           }),
           style({
-            transform: `rotate(360deg) translateY(${this.orbiter.pathRadius.asPx()})`,
-            offset: 1
+            transform: `rotate(360deg) translateY(${this.orbiter.pathRadius.asPx()})`
           })
         ])
       )

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { PlanetBuilder } from './widgets/orbiter/builder/concrete/planet.builder';
+import { StarBuilder } from './widgets/orbiter/builder/concrete/star.builder';
 import { Orbiter } from './widgets/orbiter/orbiter.model';
 
 @Component({
@@ -13,19 +15,31 @@ export class AppComponent implements OnInit
 
   ngOnInit(): void
   {
-    const earth = new Orbiter(Guid.newGuid(), "Earth")
-      .addChild(new Orbiter(Guid.newGuid(), "Moon"))
+    const earth = PlanetBuilder.new()
+      .withId(Guid.newGuid())
+      .withName("Earth")
 
-    const star = new Orbiter(Guid.newGuid(), "Sun", 50, .5)
-      .addChild(new Orbiter(Guid.newGuid(), "Mercury"))
-      .addChild(new Orbiter(Guid.newGuid(), "Venus"))
-      .addChild(earth)
-      .addChild(new Orbiter(Guid.newGuid(), "Mars"))
-      .addChild(new Orbiter(Guid.newGuid(), "Jupiter"))
-      .addChild(new Orbiter(Guid.newGuid(), "Saturn"))
-      .addChild(new Orbiter(Guid.newGuid(), "Uranus"))
-      .addChild(new Orbiter(Guid.newGuid(), "Neptune"))
-      .addChild(new Orbiter(Guid.newGuid(), "Pluto"))
+      .withChild(PlanetBuilder.new().withId(Guid.newGuid()).withName("Moon").build())
+
+      .build()
+
+    const star = StarBuilder.new()
+      .withId(Guid.newGuid())
+      .withName("Earth")
+      .withSize(50)
+      .withChildResizingRatePercent(.5)
+
+      .withChild(PlanetBuilder.new().withId(Guid.newGuid()).withName("Mercury").build())
+      .withChild(PlanetBuilder.new().withId(Guid.newGuid()).withName("Venus").build())
+      .withChild(earth)
+      .withChild(PlanetBuilder.new().withId(Guid.newGuid()).withName("Mars").build())
+      .withChild(PlanetBuilder.new().withId(Guid.newGuid()).withName("Jupiter").build())
+      .withChild(PlanetBuilder.new().withId(Guid.newGuid()).withName("Saturn").build())
+      .withChild(PlanetBuilder.new().withId(Guid.newGuid()).withName("Uranus").build())
+      .withChild(PlanetBuilder.new().withId(Guid.newGuid()).withName("Neptune").build())
+      .withChild(PlanetBuilder.new().withId(Guid.newGuid()).withName("Pluto").build())
+
+      .build()
 
     this.star = star
   }

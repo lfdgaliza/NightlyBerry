@@ -5,8 +5,15 @@
         [style.height.px]="orbiter.size"
         [style.top.px]="orbiter.calculateTopPosition()"
         [style.left.px]="orbiter.calculateLeftPosition()"
+        [style.lineHeight.px]="orbiter.size"
     >
-        <div class="label">{{ orbiter.name }}</div>
+        <span
+            class="label"
+            [style.left.px]="orbiter.size"
+        >
+            {{ orbiter.name }}
+        </span>
+
         <ng-container *ngFor="let child of orbiter.children">
             <dg-orbiter [orbiter]="child"></dg-orbiter>
         </ng-container>

@@ -1,6 +1,14 @@
 export class Orbiter
 {
-    constructor(id: string, name: string, size: number = 0, childResizingRatePercent = 1)
+    /**
+     * It is better to use a builder instead of using the constructor directly
+     * for readability purposes.
+     * @param id 
+     * @param name 
+     * @param size 
+     * @param childResizingRatePercent Ex: 0.7: The size of each child will be 70% the size of the parent.
+     */
+    constructor(id: string, name: string, children = new Array<Orbiter>(), size: number = 0, childResizingRatePercent = 1)
     {
         this._id = id
         this._name = name
@@ -8,12 +16,16 @@ export class Orbiter
         this._childResizingRatePercent = childResizingRatePercent
 
         this._children = new Array<Orbiter>()
+        this.addChildren(children)
     }
 
     private _id: string
+    public get id(): string { return this._id }
+    public set id(id: string) { this._id = id }
 
     private _name: string
     public get name(): string { return this._name }
+    public set name(name: string) { this._name = name }
 
     private _position: number = 0
     // TODO: Protect this
@@ -54,6 +66,11 @@ export class Orbiter
         this._children.push(child)
 
         return this
+    }
+
+    public addChildren(children: Array<Orbiter>)
+    {
+        children.forEach(c => this.addChild(c))
     }
 
     private updateMeasures(): void
