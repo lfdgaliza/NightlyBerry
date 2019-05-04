@@ -1,5 +1,3 @@
-import 'src/app/extensions/number-extensions';
-
 import { animate, AnimationBuilder, AnimationMetadata, AnimationPlayer, keyframes, style } from '@angular/animations';
 import { AfterViewInit, Component, ElementRef, Input } from '@angular/core';
 
@@ -54,10 +52,10 @@ export class OrbiterComponent implements AfterViewInit
         `${vel}s`,
         keyframes([
           style({
-            transform: `rotate(0deg) translateY(${this.orbiter.pathRadius.asPx()})`
+            transform: `rotate(0deg) translateY(${this.orbiter.pathRadius}px)`
           }),
           style({
-            transform: `rotate(360deg) translateY(${this.orbiter.pathRadius.asPx()})`
+            transform: `rotate(360deg) translateY(${this.orbiter.pathRadius}px)`
           })
         ])
       )
