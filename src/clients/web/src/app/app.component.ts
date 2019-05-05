@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { PlanetBuilder } from './widgets/orbiter/builder/concrete/planet.builder';
-import { StarBuilder } from './widgets/orbiter/builder/concrete/star.builder';
-import { Orbiter } from './widgets/orbiter/orbiter.model';
+import { PlanetBuilder } from './widgets/components/orbiter/builder/concrete/planet.builder';
+import { StarBuilder } from './widgets/components/orbiter/builder/concrete/star.builder';
+import { Orbiter } from './widgets/components/orbiter/orbiter.model';
 
 @Component({
   selector: 'dg-root',

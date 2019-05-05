@@ -1,6 +1,7 @@
 import { AfterContentInit, Component, ContentChild } from '@angular/core';
 
 import { OrbiterComponent } from '../orbiter/orbiter.component';
+import { Orbiter } from '../orbiter/orbiter.model';
 
 @Component({
   selector: 'dg-orbiter-container',
@@ -22,7 +23,7 @@ export class OrbiterContainerComponent implements AfterContentInit
 
     const lastChildIndex = this.orbiterComponent.orbiter.children.length - 1
     const lastChild = this.orbiterComponent.orbiter.children[lastChildIndex]
-    this.size = lastChild.pathDiameter + lastChild.size
+    this.size = (<Orbiter>lastChild).pathDiameter + (<Orbiter>lastChild).size
   }
 
 }

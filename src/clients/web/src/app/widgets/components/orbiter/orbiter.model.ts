@@ -1,4 +1,6 @@
-export class Orbiter
+import { TreeItem } from '../../shared/tree.model';
+
+export class Orbiter extends TreeItem
 {
     /**
      * It is better to use a builder instead of using the constructor directly
@@ -10,22 +12,18 @@ export class Orbiter
      */
     constructor(id: string, name: string, children = new Array<Orbiter>(), size: number = 0, childResizingRatePercent = 1)
     {
-        this._id = id
-        this._name = name
+        super()
+        this.id = id
+        this.name = name
         this._size = size
         this._childResizingRatePercent = childResizingRatePercent
 
-        this._children = new Array<Orbiter>()
+        this.children = new Array<Orbiter>()
         this.addChildren(children)
     }
 
-    private _id: string
-    public get id(): string { return this._id }
-    public set id(id: string) { this._id = id }
 
-    private _name: string
-    public get name(): string { return this._name }
-    public set name(name: string) { this._name = name }
+
 
     private _position: number = 0
     // TODO: Protect this
@@ -49,21 +47,18 @@ export class Orbiter
     private _previous: Orbiter
     private get hasPrevious(): boolean { return this._previous !== undefined }
 
-    private _children: Array<Orbiter>
-    // Used in html template
-    public get children(): Array<Orbiter> { return this._children }
-    private get hasChildren(): boolean { return this._children.length > 0 }
-    private get lastChild(): Orbiter { return this._children[this._children.length - 1] }
+    private get hasChildren(): boolean { return this.children.length > 0 }
+    private get lastChild(): Orbiter { return <Orbiter>this.children[this.children.length - 1] }
 
     public addChild(child: Orbiter): Orbiter
     {
         child._parent = this
-        child._position = this._children.length
+        child._position = this.children.length
         child._previous = this.lastChild
 
         child.updateMeasures()
 
-        this._children.push(child)
+        this.children.push(child)
 
         return this
     }
@@ -83,19 +78,19 @@ export class Orbiter
     private reflectChildResizingRatePercent(): void
     {
         this._childResizingRatePercent = this.getChildResizingRatePercentFromLastParent()
-        this._children.forEach(c => c.reflectChildResizingRatePercent())
+        this.children.forEach(c => (<Orbiter>c).reflectChildResizingRatePercent())
     }
 
     private updateSize(): void
     {
         this._size = this.calculateSize()
-        this._children.forEach(c => c.updateSize())
+        this.children.forEach(c => (<Orbiter>c).updateSize())
     }
 
     private updatePathRadius(): void
     {
         this._pathRadius = this.calculatePathRadius()
-        this._children.forEach(c => c.updatePathRadius())
+        this.children.forEach(c => (<Orbiter>c).updatePathRadius())
     }
 
     private getChildResizingRatePercentFromLastParent(): number

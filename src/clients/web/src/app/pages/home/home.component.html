@@ -1,25 +1,25 @@
-<mat-form-field class="example-full-width">
+<mat-form-field class="search-distro">
     <input
         matInput
-        placeholder="State"
-        aria-label="State"
+        placeholder='Try "Ubuntu..."'
+        aria-label="Search"
         [matAutocomplete]="auto"
-        [formControl]="stateCtrl"
+        [formControl]="distroCtrl"
     >
     <mat-autocomplete #auto="matAutocomplete">
         <mat-option
-            *ngFor="let state of filteredStates | async"
-            [value]="state.name"
+            *ngFor="let distro of filteredDistros | async"
+            [value]="distro.name"
         >
             <img
-                class="example-option-img"
+                class="distro-logo"
                 aria-hidden
-                [src]="state.flag"
+                [src]="distro.logo"
                 height="25"
             >
-            <span>{{state.name}}</span>
+            <span>{{distro.name}}</span>
             |
-            <small>Population: {{state.population}}</small>
+            <small>Based on: {{distro.basedOn}}</small>
         </mat-option>
     </mat-autocomplete>
 </mat-form-field>

@@ -3,11 +3,11 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-export interface State
+export interface Distro
 {
-  flag: string;
+  logo: string;
   name: string;
-  population: string;
+  basedOn: string;
 }
 @Component({
   selector: 'dg-home',
@@ -17,50 +17,46 @@ export interface State
 export class HomeComponent
 {
 
-  stateCtrl = new FormControl();
-  filteredStates: Observable<State[]>;
+  distroCtrl = new FormControl();
+  filteredDistros: Observable<Distro[]>;
 
-  states: State[] = [
+  distros: Distro[] = [
     {
-      name: 'Arkansas',
-      population: '2.978M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
+      name: 'Ubuntu',
+      basedOn: 'Debian',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/3/3a/Logo-ubuntu_no%28r%29-black_orange-hex.svg'
     },
     {
-      name: 'California',
-      population: '39.14M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
+      name: 'Manjaro',
+      basedOn: 'Arch Linux',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Manjaro_logo_text.png'
     },
     {
-      name: 'Florida',
-      population: '20.27M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
+      name: 'Deepin',
+      basedOn: 'Debian',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/4/4f/About_logo.png'
     },
     {
-      name: 'Texas',
-      population: '27.47M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
+      name: 'Fedora',
+      basedOn: 'RedHat',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/0/09/Fedora_logo_and_wordmark.svg'
     }
   ];
 
   constructor()
   {
-    this.filteredStates = this.stateCtrl.valueChanges
+    this.filteredDistros = this.distroCtrl.valueChanges
       .pipe(
         startWith(''),
-        map(state => state ? this._filterStates(state) : this.states.slice())
+        map(distro => distro ? this._filterDistros(distro) : this.distros.slice())
       );
   }
 
-  private _filterStates(value: string): State[]
+  private _filterDistros(value: string): Distro[]
   {
     const filterValue = value.toLowerCase();
 
-    return this.states.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
+    return this.distros.filter(distro => distro.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
 }
