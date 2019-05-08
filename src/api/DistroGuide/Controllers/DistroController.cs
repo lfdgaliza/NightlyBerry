@@ -20,9 +20,9 @@ namespace DistroGuide.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<DistroSearchItemVO>> Get()
+        public ActionResult<IEnumerable<DistroSearchItemVO>> Get(string term)
         {
-            return this.searchDistroService.SearchByTerm("Ubuntu");
+            return this.searchDistroService.SearchByTerm(term);
         }
     }
 }
