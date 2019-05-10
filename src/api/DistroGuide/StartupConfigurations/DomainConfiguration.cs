@@ -4,9 +4,9 @@ using DistroGuide.Services;
 using DistroGuide.Services.Impl;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DistroGuide
+namespace DistroGuide.StartupConfigurations
 {
-    public static class AddDomainExtension
+    public static class DomainConfiguration
     {
         public static void AddDomain(this IServiceCollection services)
         {
