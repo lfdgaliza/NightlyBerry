@@ -19,5 +19,10 @@ namespace DistroGuide.VO
         /// </summary>
         /// <value></value>
         public string P { get; set; }
+        /// <summary>
+        /// Based on
+        /// </summary>
+        /// <value></value>
+        public string B { get; set; }
     }
 }

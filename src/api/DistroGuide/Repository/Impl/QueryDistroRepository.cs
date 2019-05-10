@@ -19,7 +19,8 @@ namespace DistroGuide.Repository.Impl
                 {
                     I = d.Id,
                     N = d.Name,
-                    P = d.IconUrl
+                    P = d.IconUrl,
+                    B = d.BasedOn.Name
                 })
                 .ToList();
         }
