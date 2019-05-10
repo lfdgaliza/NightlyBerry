@@ -21,7 +21,7 @@ export class DistroSearchService
   {
     const filterValue = value.toLowerCase();
 
-    return this.distros.filter(distro => distro.name.toLowerCase().indexOf(filterValue) === 0);
+    return this.distros.filter(distro => distro.name.toLowerCase().indexOf(filterValue) === 0).slice(1, 5);
   }
 
   constructor(private http: HttpClient)
