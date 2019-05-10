@@ -12,15 +12,14 @@ namespace DistroGuide.Repository.Impl
         {
             this.context = context;
         }
-        public List<DistroSearchItemVO> SearchByTerm(string term)
+        public List<DistroSearchItemVO> GetAllDistrosForSearch()
         {
             return this.context.Distros
-                .Where(d => d.Name.Contains(term))
                 .Select(d => new DistroSearchItemVO
                 {
-                    Id = d.Id,
-                    Name = d.Name,
-                    ImgPath = d.IconUrl
+                    I = d.Id,
+                    N = d.Name,
+                    P = d.IconUrl
                 })
                 .ToList();
         }

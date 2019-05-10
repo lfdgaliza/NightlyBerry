@@ -31,7 +31,13 @@ namespace DistroGuide
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCustomCors();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services
+                .AddMvc()
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.None;
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddDbContext<DistroGuideContext>(options => options.UseMySQL(ConnectionString));
             services.AddDomain();
 

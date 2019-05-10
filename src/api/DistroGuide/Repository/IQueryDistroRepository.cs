@@ -5,6 +5,6 @@ namespace DistroGuide.Repository
 {
     public interface IQueryDistroRepository
     {
-        List<DistroSearchItemVO> SearchByTerm(string term);
+        List<DistroSearchItemVO> GetAllDistrosForSearch();
     }
 }

@@ -11,9 +11,9 @@ namespace DistroGuide.Services.Impl
         {
             this.queryDistroRepository = queryDistroRepository;
         }
-        public List<DistroSearchItemVO> SearchByTerm(string term)
+        public List<DistroSearchItemVO> GetAllDistrosForSearch()
         {
-            return this.queryDistroRepository.SearchByTerm(term);
+            return this.queryDistroRepository.GetAllDistrosForSearch();
         }
     }
 }

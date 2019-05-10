@@ -19,10 +19,11 @@ namespace DistroGuide.Controllers
             this.searchDistroService = searchDistroService;
         }
 
+        [Route("for-search")]
         [HttpGet]
-        public ActionResult<IEnumerable<DistroSearchItemVO>> Get(string term)
+        public ActionResult<IEnumerable<DistroSearchItemVO>> Get()
         {
-            return this.searchDistroService.SearchByTerm(term);
+            return this.searchDistroService.GetAllDistrosForSearch();
         }
     }
 }
