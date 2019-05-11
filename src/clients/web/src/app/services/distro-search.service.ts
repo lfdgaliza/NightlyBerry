@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { Distro } from '../pages/home/home.component';
+import { Distro } from '../components/home/home.component';
 
 @Injectable({
   providedIn: 'root'

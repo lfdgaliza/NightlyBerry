@@ -1,0 +1,31 @@
+<section class="mx-auto my-auto search-component">
+    <img
+        src="/assets/img/dg-logo.png"
+        class="logo"
+    >
+    <mat-form-field class="search-input">
+        <input
+            matInput
+            placeholder='Try "Ubuntu..."'
+            aria-label="Search"
+            [matAutocomplete]="auto"
+            [formControl]="distroCtrl"
+        >
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+                *ngFor="let distro of filteredDistros | async"
+                [value]="distro.name"
+            >
+                <img
+                    class="distro-logo"
+                    aria-hidden
+                    [src]="distro.logo"
+                    height="25"
+                >
+                <span>{{distro.name}}</span>
+                |
+                <small>Based on: {{distro.basedOn}}</small>
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</section>
