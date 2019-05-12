@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DistroDetailService } from 'src/app/services/distro-detail.service';
 
 @Component({
   selector: 'dg-distro-detail',
@@ -8,10 +9,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DistroDetailComponent implements OnInit
 {
-
   id: string;
+  summary: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private distroDetailService: DistroDetailService) { }
 
   ngOnInit()
   {
@@ -21,6 +24,11 @@ export class DistroDetailComponent implements OnInit
 
       // Dispatch action to load the details here.
     });
+
+    this.distroDetailService.getSummary().subscribe(s =>
+    {
+      this.summary = s
+    })
   }
 
 }
