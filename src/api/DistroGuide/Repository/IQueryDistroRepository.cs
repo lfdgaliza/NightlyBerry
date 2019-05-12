@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using System.Linq;
 using DistroGuide.VO;
 
 namespace DistroGuide.Repository
 {
     public interface IQueryDistroRepository
     {
-        List<DistroSearchItemVO> GetAllDistrosForSearch();
+        IQueryable<DistroSearchItemVO> GetDistrosByName(string term);
+        IQueryable<DistroSearchItemVO> GetDistrosByName(string term, int maxResults);
     }
 }

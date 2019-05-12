@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { DistroDetailComponent } from './components/distro-detail/distro-detail.component';
 import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent }
+  { path: '', component: HomeComponent },
+  { path: 'distro/detail/:id', component: DistroDetailComponent }
 ];
 
 @NgModule({

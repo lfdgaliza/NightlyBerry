@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Distro } from '../components/home/home.component';
 
@@ -10,28 +12,14 @@ export class DistroSearchService
 {
   private distrosUrl = 'https://localhost:5001/api/distro/for-search'
 
-  private distros: Array<Distro> = new Array<Distro>()
-
-  filterDistros(distro: string): Array<Distro>
+  getDistros(term: string): Observable<Array<Distro>>
   {
-    return this._filterDistros(distro)
+    const url = `${this.distrosUrl}?term=${term}`
+    return this.http.get<Array<any>>(url)
+      .pipe(
+        map(distroList => distroList.map(apiDistro => <Distro>{ id: apiDistro.i, name: apiDistro.n, logo: apiDistro.p, basedOn: apiDistro.b }))
+      )
   }
 
-  private _filterDistros(value: string): Array<Distro>
-  {
-    const filterValue = value.toLowerCase();
-
-    return this.distros.filter(distro => distro.name.toLowerCase().indexOf(filterValue) === 0).slice(1, 5);
-  }
-
-  constructor(private http: HttpClient)
-  {
-    if (this.distros.length == 0)
-      //this.distros = 
-      http.get<Array<any>>(this.distrosUrl)
-        .subscribe(result =>
-        {
-          this.distros = result.map(apid => <Distro>{ id: apid.d, name: apid.n, logo: apid.p, basedOn: apid.b })
-        });
-  }
+  constructor(private http: HttpClient) { }
 }

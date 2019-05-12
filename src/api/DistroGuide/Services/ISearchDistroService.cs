@@ -6,6 +6,6 @@ namespace DistroGuide.Services
 {
     public interface ISearchDistroService
     {
-        List<DistroSearchItemVO> GetAllDistrosForSearch();
+        List<DistroSearchItemVO> GetDistrosByTerm(string term);
     }
 }

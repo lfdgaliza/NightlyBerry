@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using DistroGuide.Repository;
 using DistroGuide.VO;
 
@@ -11,9 +12,12 @@ namespace DistroGuide.Services.Impl
         {
             this.queryDistroRepository = queryDistroRepository;
         }
-        public List<DistroSearchItemVO> GetAllDistrosForSearch()
+        public List<DistroSearchItemVO> GetDistrosByTerm(string term)
         {
-            return this.queryDistroRepository.GetAllDistrosForSearch();
+            term = term.Trim();
+            return this.queryDistroRepository.GetDistrosByName(term, 5)
+                .OrderBy(b => b.N.Length)
+                .ToList();
         }
     }
 }

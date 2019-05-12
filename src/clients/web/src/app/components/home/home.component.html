@@ -11,10 +11,15 @@
             [matAutocomplete]="auto"
             [formControl]="distroCtrl"
         >
-        <mat-autocomplete #auto="matAutocomplete">
+        <mat-autocomplete
+            autoActiveFirstOption
+            #auto="matAutocomplete"
+            [displayWith]="showName"
+            (optionSelected)="optionSelected($event)"
+        >
             <mat-option
                 *ngFor="let distro of filteredDistros | async"
-                [value]="distro.name"
+                [value]="distro"
             >
                 <img
                     class="distro-logo"
@@ -29,3 +34,4 @@
         </mat-autocomplete>
     </mat-form-field>
 </section>
+<div *ngIf="isLoading">Loading...</div>

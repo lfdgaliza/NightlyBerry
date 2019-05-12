@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DistroGuide.Services;
 using DistroGuide.VO;
 using Microsoft.AspNetCore.Mvc;
@@ -21,9 +20,9 @@ namespace DistroGuide.Controllers
 
         [Route("for-search")]
         [HttpGet]
-        public ActionResult<IEnumerable<DistroSearchItemVO>> Get()
+        public ActionResult<IEnumerable<DistroSearchItemVO>> Get(string term)
         {
-            return this.searchDistroService.GetAllDistrosForSearch();
+            return this.searchDistroService.GetDistrosByTerm(term ?? string.Empty);
         }
     }
 }
