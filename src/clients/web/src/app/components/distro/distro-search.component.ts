@@ -19,7 +19,7 @@ export class Distro
   templateUrl: './distro-search.component.html',
   styleUrls: ['./distro-search.component.scss']
 })
-export class HomeComponent implements OnInit, AfterViewInit
+export class DistroSearchComponent implements OnInit, AfterViewInit
 {
   distroCtrl = new FormControl();
   filteredDistros: Observable<Array<Distro>>;
