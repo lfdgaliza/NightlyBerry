@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Distro } from '../components/home/home.component';
+import { Distro } from '../components/distro/distro-search.component';
 
 @Injectable({
   providedIn: 'root'

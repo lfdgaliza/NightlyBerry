@@ -15,9 +15,9 @@ export class Distro
   basedOn: string;
 }
 @Component({
-  selector: 'dg-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'dg-distro-search',
+  templateUrl: './distro-search.component.html',
+  styleUrls: ['./distro-search.component.scss']
 })
 export class HomeComponent implements OnInit, AfterViewInit
 {
