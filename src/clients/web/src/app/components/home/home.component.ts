@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { animate, AnimationBuilder, AnimationPlayer, style } from '@angular/animations';
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { DistroSearchService } from 'src/app/services/distro-search.service';
 
 export class Distro
@@ -18,30 +19,31 @@ export class Distro
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit
+export class HomeComponent implements OnInit, AfterViewInit
 {
   distroCtrl = new FormControl();
   filteredDistros: Observable<Array<Distro>>;
-  isLoading: boolean;
 
   constructor(
     private distroSearchService: DistroSearchService,
-    private router: Router) { }
+    private router: Router,
+    private builder: AnimationBuilder,
+    private el: ElementRef,
+    private renderer: Renderer2) { }
 
   ngOnInit(): void
   {
     this.filteredDistros = this.distroCtrl.valueChanges.pipe(
-      // wait 300ms after each keystroke before considering the term
-      //debounceTime(300),
-
-      // ignore new term if same as previous term
       distinctUntilChanged(),
-
-      tap(t => this.isLoading = true),
-
-      // switch to new search observable each time the term changes
-      switchMap((term: string) => this.distroSearchService.getDistros(term).pipe(tap(t => this.isLoading = false)))
+      switchMap((term: string) => this.distroSearchService.getDistros(term))
     )
+  }
+
+  ngAfterViewInit(): void
+  {
+    const player = this.fadeInSearchPlayer()
+    player.play()
+    player.onDone(() => this.renderer.selectRootElement("#searchInput").focus())
   }
 
   showName(distro?: Distro): string | undefined
@@ -51,6 +53,22 @@ export class HomeComponent implements OnInit
 
   public optionSelected(evt: MatAutocompleteSelectedEvent): void
   {
-    this.router.navigateByUrl(`/distro/detail/${(<Distro>evt.option.value).id}`)
+    const player = this.fadeOutSearchPlayer();
+    player.onDone(() => this.router.navigateByUrl(`/distro/detail/${(<Distro>evt.option.value).id}`));
+    player.play()
+  }
+
+  public fadeInSearchPlayer(): AnimationPlayer
+  {
+    const metadata = animate(`300ms ease-in`, style({ opacity: `1` }))
+    const factory = this.builder.build(metadata)
+    return factory.create(this.el.nativeElement.firstChild)
+  }
+
+  public fadeOutSearchPlayer(): AnimationPlayer
+  {
+    const metadata = animate(`250ms ease-in`, style({ opacity: `0` }))
+    const factory = this.builder.build(metadata)
+    return factory.create(this.el.nativeElement)
   }
 }
