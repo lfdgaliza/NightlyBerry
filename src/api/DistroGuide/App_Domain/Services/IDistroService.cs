@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using DistroGuide;
-using DistroGuide.VO;
+using DistroGuide.App_Domain.CrossCutting.VO;
 
-namespace DistroGuide.Services
+namespace DistroGuide.App_Domain.Services
 {
-    public interface ISearchDistroService
+    public interface IDistroService
     {
         List<DistroSearchItemVO> GetDistrosByTerm(string term);
     }

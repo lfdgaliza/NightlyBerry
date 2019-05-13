@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DistroGuide.Repository.Entities
+namespace DistroGuide.App_Domain.Repository.Entities
 {
     public class Distro
     {

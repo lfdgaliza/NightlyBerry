@@ -1,10 +1,10 @@
-using DistroGuide.Repository;
-using DistroGuide.Repository.Impl;
-using DistroGuide.Services;
-using DistroGuide.Services.Impl;
+using DistroGuide.App_Domain.Repository;
+using DistroGuide.App_Domain.Services;
+using DistroGuide.App_Impl.Repository;
+using DistroGuide.App_Impl.Services;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DistroGuide.StartupConfigurations
+namespace DistroGuide.App_Start
 {
     public static class DomainConfiguration
     {
@@ -16,7 +16,8 @@ namespace DistroGuide.StartupConfigurations
 
         private static void AddServices(IServiceCollection services)
         {
-            services.AddScoped<ISearchDistroService, SearchDistroService>();
+            services.AddScoped<ICacheService, InMemoryCacheService>();
+            services.AddScoped<IDistroService, DistroService>();
         }
 
         private static void AddRepositories(IServiceCollection services)

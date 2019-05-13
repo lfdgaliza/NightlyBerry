@@ -1,11 +1,7 @@
-using DistroGuide.Repository;
-using DistroGuide.Repository.Impl;
-using DistroGuide.Services;
-using DistroGuide.Services.Impl;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace DistroGuide.StartupConfigurations
+namespace DistroGuide.App_Start
 {
     public static class CorsConfiguration
     {

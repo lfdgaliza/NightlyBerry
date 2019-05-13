@@ -1,8 +1,8 @@
-using DistroGuide.Repository.Entities;
+using DistroGuide.App_Domain.Repository.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DistroGuide.Repository.Config.Mappings
+namespace DistroGuide.App_Impl.Repository.Config.Mappings
 {
     public class DistroMap : IEntityTypeConfiguration<Distro>
     {

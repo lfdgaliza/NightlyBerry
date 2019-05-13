@@ -1,7 +1,7 @@
-using DistroGuide.Repository.Entities;
+using DistroGuide.App_Domain.Repository.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace Repository.Config
+namespace DistroGuide.App_Impl.Repository.Config
 {
     public class DistroGuideContext : DbContext
     {

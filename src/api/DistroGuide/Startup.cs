@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DistroGuide.StartupConfigurations;
+using DistroGuide.App_Impl.Repository.Config;
+using DistroGuide.App_Start;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,7 +13,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Repository.Config;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace DistroGuide
@@ -25,7 +25,8 @@ namespace DistroGuide
         }
 
         public IConfiguration Configuration { get; }
-        private string ConnectionString => Environment.GetEnvironmentVariable("CONNECTION_STRING");
+        private static string connectionString => Environment.GetEnvironmentVariable("CONNECTION_STRING");
+        public static string ConnectionString { get { return connectionString; } }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -38,7 +39,7 @@ namespace DistroGuide
                     options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.None;
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<DistroGuideContext>(options => options.UseMySQL(ConnectionString));
+            services.AddDbContext<DistroGuideContext>(options => options.UseMySQL(connectionString));
             services.AddDomain();
 
             services.AddSwaggerGen(c =>

@@ -1,6 +1,6 @@
 using System;
 
-namespace DistroGuide.VO
+namespace DistroGuide.App_Domain.CrossCutting.VO
 {
     public class DistroSearchItemVO
     {
