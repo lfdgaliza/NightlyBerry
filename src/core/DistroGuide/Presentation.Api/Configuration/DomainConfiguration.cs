@@ -15,6 +15,7 @@ namespace DistroGuide.Presentation.Api.Configuration
         {
             services.AddScoped<ICacheService, InMemoryCacheService>();
             services.AddScoped<IDistroService, DistroService>();
+            services.AddScoped<ITranslationService, TranslationService>();
 
             // TODO This is temporary (I hope so!)
             services.AddSingleton<ILayerConfiguration, ServiceConfiguration>();
@@ -23,6 +24,7 @@ namespace DistroGuide.Presentation.Api.Configuration
         public static void AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IQueryDistroRepository, QueryDistroRepository>();
+            services.AddScoped<ITranslationRepository, TranslationRepository>();
         }
 
         public static void AddSingletonRepositories(this IServiceCollection services, string connectionString)

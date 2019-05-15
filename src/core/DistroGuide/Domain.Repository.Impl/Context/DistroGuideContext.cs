@@ -15,5 +15,6 @@ namespace DistroGuide.Domain.Repository.Impl.Context
         }
 
         public DbSet<Distro> Distros { get; set; }
+        public DbSet<Translation> Translations { get; set; }
     }
 }

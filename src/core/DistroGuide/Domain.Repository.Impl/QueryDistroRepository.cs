@@ -15,7 +15,7 @@ namespace DistroGuide.Domain.Repository.Impl
 
         public IQueryable<Distro> GetAllDistros()
         {
-            return this.context.Distros
+            return this.context.Set<Distro>()
                 .Select(s => new Distro
                 {
                     Id = s.Id,

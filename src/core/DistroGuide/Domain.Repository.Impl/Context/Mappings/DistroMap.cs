@@ -11,6 +11,7 @@ namespace DistroGuide.Domain.Repository.Impl.Context.Mappings
             builder.ToTable("Distro");
 
             builder.HasKey(p => p.Id);
+
             builder.Property(p => p.Id).HasColumnName("Id");
             builder.Property(p => p.Name).HasColumnName("Name");
             builder.Property(p => p.HomePage).HasColumnName("HomePage");

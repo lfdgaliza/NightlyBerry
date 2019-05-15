@@ -15,4 +15,7 @@
     <ProjectReference Include="..\Domain.Model\Domain.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Dto\ModuleTranslationDto.cs" />
+  </ItemGroup>
 </Project>

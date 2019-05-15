@@ -12,10 +12,10 @@ namespace DistroGuide.Domain.Repository.Impl
 
         public SingletonRepository(string connectionString)
         {
-            var options = new DbContextOptions<DistroGuideContext>();
+            options = new DbContextOptions<DistroGuideContext>();
             var optionsBuilder = new DbContextOptionsBuilder(options);
             optionsBuilder.UseMySQL(connectionString);
-            this.options = (DbContextOptions<DistroGuideContext>)optionsBuilder.Options;
+            options = (DbContextOptions<DistroGuideContext>)optionsBuilder.Options;
         }
 
         public List<Distro> GetAllDistros()

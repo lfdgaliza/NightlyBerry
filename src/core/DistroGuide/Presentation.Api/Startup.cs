@@ -37,6 +37,8 @@ namespace Presentation.Api
             services.AddRepositories();
             services.AddSingletonRepositories(connectionString);
 
+            services.AddCors();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "Distro Guide API", Version = "v1" });
@@ -46,8 +48,6 @@ namespace Presentation.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.ConfigureServicesLayer();
-
             if (env.IsDevelopment())
             {
                 app.UseCorsForDevelopment();
@@ -60,13 +60,9 @@ namespace Presentation.Api
                 app.UseHsts();
             }
 
+            app.ConfigureServicesLayer();
             app.UseHttpsRedirection();
-
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
