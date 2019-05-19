@@ -17,11 +17,11 @@ namespace DistroGuide.Presentation.Api.Controllers
             this.translationService = translationService;
         }
 
-        [Route("module/{moduleName}")]
+        [Route("module/{moduleName}/{language}")]
         [HttpGet]
-        public ActionResult<Dictionary<string, string>> GetModule(string moduleName, string lang)
+        public ActionResult<Dictionary<string, string>> GetModule(string moduleName, string language)
         {
-            return this.translationService.GetModuleTranslation(moduleName, lang);
+            return this.translationService.GetModuleTranslation(moduleName, language);
         }
     }
 }

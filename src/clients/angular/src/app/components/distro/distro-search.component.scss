@@ -1,0 +1,42 @@
+@import '~bootstrap/scss/functions';
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+
+.search-component {
+    text-align: center;
+    opacity: 0;
+
+    img {
+        margin: 1em;
+        width: 150px;
+    }
+}
+
+@include media-breakpoint-up(sm) {
+    .search-component {
+        width: 500px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -49.999%);
+        position: absolute;
+
+        img {
+            margin-top: initial;
+            width: initial;
+        }
+    }
+}
+
+.search-input {
+    width: 500px;
+}
+
+.distro-logo {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+[dir='rtl'] .distro-logo {
+    margin-right: 0;
+    margin-left: 8px;
+}

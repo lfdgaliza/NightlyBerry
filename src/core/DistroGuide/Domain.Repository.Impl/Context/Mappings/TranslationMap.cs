@@ -14,7 +14,7 @@ namespace DistroGuide.Domain.Repository.Impl.Context.Mappings
 
             builder.Property(p => p.Id).HasColumnName("Id");
             builder.Property(p => p.Module).HasColumnName("Module");
-            builder.Property(p => p.Name).HasColumnName("Name");
+            builder.Property(p => p.Name).HasColumnName("ResourceName");
             builder.Property(p => p.Description).HasColumnName("Description");
             builder.Property(p => p.Language).HasColumnName("Language");
             builder.Property(p => p.Value).HasColumnName("Value");

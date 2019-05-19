@@ -1,0 +1,49 @@
+$fade: 20px;
+
+.orbiter {
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    position: relative;
+
+    background-color: lightblue;
+
+    $spread: -5px;
+    -webkit-box-shadow:0px 0px $fade $spread #00dfff ;
+    -moz-box-shadow:0px 0px $fade $spread #00dfff ;
+    box-shadow:0px 0px $fade $spread #00dfff ;
+}
+
+.star {
+    background-color: yellow;
+
+    $spread: 5px;
+    -webkit-box-shadow:0px 0px $fade $spread orange ;
+    -moz-box-shadow:0px 0px $fade $spread orange ;
+    box-shadow:0px 0px $fade $spread orange ;
+}
+
+.orbiter-path {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border: 1px dashed #444;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.label {
+    position: absolute;
+    vertical-align: middle;
+    color: #aaa;
+    margin-left: .2em;
+}
+
+.vacuum {
+    position: absolute;
+    background-color: red;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+}
