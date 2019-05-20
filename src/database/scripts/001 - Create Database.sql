@@ -18,7 +18,6 @@ create table `Distro` (
   `Id` char(36) not null,
   `Name` varchar(50) not null,
   `BasedOn` char(36) default null,
-  `HomePage` varchar(250) default null,
   `Start` datetime default null,
   `End` datetime default null,
   `Icon` varchar(200) default null,
@@ -48,8 +47,9 @@ create table `ExternalResourceType` (
   primary key (`Id`)
 );
 
-create table `ExternalResource` (
+create table `DistroExternalResource` (
   `Id` char(36) not null,
+	`DistroId` char(36) not null,
   `ExternalResourceTypeId` char(36) not null, 
   `Resource` varchar(200) not null,
   `IsPrincipal` boolean not null,
@@ -68,13 +68,6 @@ create table `PackageDistro` (
 create table `PackageExternalResource` (
   `Id` char(36) not null,
   `PackageId` char(36) not null,
-  `ExternalResourceId` char(36) not null,
-  primary key (`Id`)
-);
-
-create table `DistroExternalResource` (
-  `Id` char(36) not null,
-  `DistroId` char(36) not null,
   `ExternalResourceId` char(36) not null,
   primary key (`Id`)
 );

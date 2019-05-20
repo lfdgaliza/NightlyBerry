@@ -19,7 +19,7 @@ namespace Bootstrap
 
         static void Main(string[] args)
         {
-            var con = new MySqlConnection("");
+            var con = new MySqlConnection("Server=localhost;Database=distro-guide;Uid=root;Pwd=umasenhaqualquer;");
             var command = con.CreateCommand();
 
             try
@@ -37,8 +37,8 @@ namespace Bootstrap
                         if (isNotNode)
                             continue;
 
-                        var newGuid = Guid.NewGuid();
-                        cache.Add(new KeyValuePair<Guid, string>(newGuid, line[NAME]));
+                        var distroGuid = Guid.NewGuid();
+                        cache.Add(new KeyValuePair<Guid, string>(distroGuid, line[NAME]));
 
                         var parentId = GetNullable(line[PARENT], () => cache.Last(c => c.Value == line[PARENT]).Key.ToString());
 
@@ -46,9 +46,17 @@ namespace Bootstrap
                         var end = GetNullable(line[END], () => ToMySQLDate(line[END]));
 
                         var insert = $@"insert into Distro 
-                        (Id, Name, BasedOn, HomePage, Start, End)
+                        (Id, Name, BasedOn, Start, End)
                         values 
-                        ('{newGuid}','{line[NAME]}',{parentId},'{line[LINK]}',{start},{end})";
+                        ('{distroGuid}','{line[NAME]}',{parentId},{start},{end})";
+
+                        command.CommandText = insert;
+                        command.ExecuteNonQuery();
+
+                        insert = $@"insert into DistroExternalResource
+                        (Id, DistroId, ExternalResourceTypeId, Resource, IsPrincipal)
+                        values
+                        ('{Guid.NewGuid()}', '{distroGuid}', 'e35182b6-e94d-4866-988f-efbba491b994', '{line[LINK]}', true)";
 
                         command.CommandText = insert;
                         command.ExecuteNonQuery();
