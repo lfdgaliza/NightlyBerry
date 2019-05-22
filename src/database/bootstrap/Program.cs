@@ -53,10 +53,10 @@ namespace Bootstrap
                         command.CommandText = insert;
                         command.ExecuteNonQuery();
 
-                        insert = $@"insert into DistroExternalResource
-                        (Id, DistroId, ExternalResourceTypeId, Resource, IsPrincipal)
+                        insert = $@"insert into ExternalResource
+                        (Id, TargetId, TargetType, ExternalResourceTypeId, ExternalReference, IsPrincipal)
                         values
-                        ('{Guid.NewGuid()}', '{distroGuid}', 'e35182b6-e94d-4866-988f-efbba491b994', '{line[LINK]}', true)";
+                        ('{Guid.NewGuid()}', '{distroGuid}', 'D', 'e35182b6-e94d-4866-988f-efbba491b994', '{line[LINK]}', true)";
 
                         command.CommandText = insert;
                         command.ExecuteNonQuery();

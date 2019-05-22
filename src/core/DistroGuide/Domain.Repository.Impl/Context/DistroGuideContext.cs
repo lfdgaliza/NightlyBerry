@@ -13,8 +13,5 @@ namespace DistroGuide.Domain.Repository.Impl.Context
         {
             modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
-
-        public DbSet<Distro> Distros { get; set; }
-        public DbSet<Translation> Translations { get; set; }
     }
 }

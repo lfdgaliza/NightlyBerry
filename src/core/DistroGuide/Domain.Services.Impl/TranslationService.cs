@@ -8,18 +8,18 @@ namespace DistroGuide.Domain.Services.Impl
 {
     public class TranslationService : ITranslationService
     {
-        private readonly ITranslationRepository translationRepository;
+        private readonly IResourceTranslationRepository resourceTranslationRepository;
 
-        public TranslationService(ITranslationRepository translationRepository)
+        public TranslationService(IResourceTranslationRepository resourceTranslationRepository)
         {
-            this.translationRepository = translationRepository;
+            this.resourceTranslationRepository = resourceTranslationRepository;
         }
 
         public Dictionary<string, string> GetModuleTranslation(string moduleName, string language)
         {
-            return this.translationRepository
-                .GetTranslationsByModule(moduleName, language)
-                .ToDictionary(k => k.Name, v => v.Value);
+            return this.resourceTranslationRepository
+                .GetTranslationsByClassification(moduleName, language)
+                .ToDictionary(k => k.Resource.Name, v => v.Translation);
         }
     }
 }

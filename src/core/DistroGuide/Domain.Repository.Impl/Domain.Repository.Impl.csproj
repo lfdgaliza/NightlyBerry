@@ -16,4 +16,7 @@
     <ProjectReference Include="..\Domain.Model\Domain.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Context\Mappings\TranslationMap.cs" />
+  </ItemGroup>
 </Project>

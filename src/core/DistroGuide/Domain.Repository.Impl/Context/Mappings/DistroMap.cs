@@ -14,11 +14,13 @@ namespace DistroGuide.Domain.Repository.Impl.Context.Mappings
 
             builder.Property(p => p.Id).HasColumnName("Id");
             builder.Property(p => p.Name).HasColumnName("Name");
-            builder.Property(p => p.HomePage).HasColumnName("HomePage");
+
             builder.Property(p => p.IconUrl).HasColumnName("Icon");
 
             builder.Property(p => p.BasedOnId).HasColumnName("BasedOn");
             builder.HasOne(p => p.BasedOn).WithMany(p => p.Children).HasForeignKey(p => p.BasedOnId);
+
+            builder.HasMany(p => p.ExternalResources).WithOne().HasForeignKey(k => k.TargetId);
         }
     }
 }

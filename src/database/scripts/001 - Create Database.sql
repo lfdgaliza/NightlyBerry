@@ -47,11 +47,12 @@ create table `ExternalResourceType` (
   primary key (`Id`)
 );
 
-create table `DistroExternalResource` (
+create table `ExternalResource` (
   `Id` char(36) not null,
-	`DistroId` char(36) not null,
+	`TargetId` char(36) not null,
+	`TargetType` char(1) not null, -- D: Distro, P: Package
   `ExternalResourceTypeId` char(36) not null, 
-  `Resource` varchar(200) not null,
+  `ExternalReference` varchar(250) not null,
   `IsPrincipal` boolean not null,
   primary key (`Id`)
 );
@@ -62,12 +63,5 @@ create table `PackageDistro` (
   `PackageId` char(36) not null,
   `IsOficial` boolean not null,
   `IsPrincipal` boolean not null,
-  primary key (`Id`)
-);
-
-create table `PackageExternalResource` (
-  `Id` char(36) not null,
-  `PackageId` char(36) not null,
-  `ExternalResourceId` char(36) not null,
   primary key (`Id`)
 );

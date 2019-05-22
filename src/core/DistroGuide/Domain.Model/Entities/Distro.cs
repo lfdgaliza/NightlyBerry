@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DistroGuide.Domain.Model.Entities
 {
@@ -8,7 +7,6 @@ namespace DistroGuide.Domain.Model.Entities
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public string HomePage { get; set; }
         public DateTime Start { get; set; }
         public DateTime? End { get; set; }
         public string IconUrl { get; set; }
@@ -17,5 +15,6 @@ namespace DistroGuide.Domain.Model.Entities
         public Distro BasedOn { get; set; }
 
         public HashSet<Distro> Children { get; set; }
+        public HashSet<ExternalResource> ExternalResources { get; set; }    
     }
 }
