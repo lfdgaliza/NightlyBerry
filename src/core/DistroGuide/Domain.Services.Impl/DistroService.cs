@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using DistroGuide.Domain.Model.Entities;
+﻿using AutoMapper;
+using DistroGuide.Domain.Model.Entities.Distros;
 using DistroGuide.Domain.Repository;
 using DistroGuide.Domain.Services.Dto;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DistroGuide.Domain.Services.Impl
 {

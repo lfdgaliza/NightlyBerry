@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using DistroGuide.Domain.Model.Entities;
+﻿using DistroGuide.Domain.Model.Entities.Resources;
+using System.Linq;
 
 namespace DistroGuide.Domain.Repository
 {

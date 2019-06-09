@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using DistroGuide.Domain.Model.Entities;
+﻿using DistroGuide.Domain.Model.Entities.Distros;
+using System.Collections.Generic;
 
 namespace DistroGuide.Domain.Repository
 {

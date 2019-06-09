@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -9,7 +9,12 @@
   <ItemGroup>
     <Compile Remove="DistroSearchItem.cs" />
   </ItemGroup>
+
   <ItemGroup>
-    <Folder Include="Entities\" />
+    <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CrossCutting.Infra\CrossCutting.Infra.csproj" />
   </ItemGroup>
 </Project>

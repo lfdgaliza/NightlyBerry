@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presentation.Api", "Presentation.Api\Presentation.Api.csproj", "{9CCA986A-BB92-4356-B725-E23ABAE3F30E}"
 EndProject
@@ -17,13 +17,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Model", "Domain.Mode
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. CrossCutting", "3. CrossCutting", "{876C5F69-7538-4922-B627-DA6B83ACA980}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCutting.Infra", "CrossCutting.Infra\CrossCutting.Infra.csproj", "{7C080413-010C-48B7-A30C-4062EEF604B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CrossCutting.Infra", "CrossCutting.Infra\CrossCutting.Infra.csproj", "{7C080413-010C-48B7-A30C-4062EEF604B3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Implementations", "4. Implementations", "{3040A691-E178-4FE8-8945-CFA1C7CBDB76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Services.Impl", "Domain.Services.Impl\Domain.Services.Impl.csproj", "{1245FE8B-D1A4-4F50-A245-F0B0ECD415C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Services.Impl", "Domain.Services.Impl\Domain.Services.Impl.csproj", "{1245FE8B-D1A4-4F50-A245-F0B0ECD415C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Repository.Impl", "Domain.Repository.Impl\Domain.Repository.Impl.csproj", "{04CE2359-B2BB-4888-A9FA-E99AF47F85DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Repository.Impl", "Domain.Repository.Impl\Domain.Repository.Impl.csproj", "{04CE2359-B2BB-4888-A9FA-E99AF47F85DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

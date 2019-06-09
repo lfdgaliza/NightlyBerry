@@ -1,7 +1,8 @@
-﻿using System.Linq;
-using DistroGuide.Domain.Model.Entities;
+﻿using DistroGuide.Domain.Model.Entities.Resources;
 using DistroGuide.Domain.Repository.Impl.Context;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Linq;
 
 namespace DistroGuide.Domain.Repository.Impl
 {
@@ -20,11 +21,13 @@ namespace DistroGuide.Domain.Repository.Impl
                 .Set<ResourceTranslation>()
                 .Include(i => i.Resource);
 
-            return
-                from rt in resourceTranslations
-                where rt.Resource.Classification == classification
-                && rt.Language == language
-                select rt;
+            //return
+            //    from rt in resourceTranslations
+            //    where rt.Resource.Category == classification
+            //    && rt.Language == language
+            //    select rt;
+
+            throw new NotImplementedException();
         }
     }
 }

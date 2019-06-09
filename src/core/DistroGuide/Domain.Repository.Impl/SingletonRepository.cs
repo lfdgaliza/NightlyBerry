@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using DistroGuide.Domain.Model.Entities;
+﻿using DistroGuide.Domain.Model.Entities.Distros;
 using DistroGuide.Domain.Repository.Impl.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DistroGuide.Domain.Repository.Impl
 {
@@ -14,7 +14,7 @@ namespace DistroGuide.Domain.Repository.Impl
         {
             options = new DbContextOptions<DistroGuideContext>();
             var optionsBuilder = new DbContextOptionsBuilder(options);
-            optionsBuilder.UseMySQL(connectionString);
+            optionsBuilder.UseSqlServer(connectionString);
             options = (DbContextOptions<DistroGuideContext>)optionsBuilder.Options;
         }
 

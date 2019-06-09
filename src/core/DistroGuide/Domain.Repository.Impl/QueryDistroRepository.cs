@@ -1,6 +1,6 @@
-﻿using System.Linq;
-using DistroGuide.Domain.Model.Entities;
+﻿using DistroGuide.Domain.Model.Entities.Distros;
 using DistroGuide.Domain.Repository.Impl.Context;
+using System.Linq;
 
 namespace DistroGuide.Domain.Repository.Impl
 {
@@ -20,8 +20,7 @@ namespace DistroGuide.Domain.Repository.Impl
                 {
                     Id = s.Id,
                     BasedOnId = s.BasedOnId,
-                    Name = s.Name,
-                    IconUrl = s.IconUrl
+                    Name = s.Name
                 });
         }
     }

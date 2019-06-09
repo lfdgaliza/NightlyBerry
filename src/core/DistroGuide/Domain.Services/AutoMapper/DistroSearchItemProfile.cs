@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using DistroGuide.Domain.Model.Entities;
+using DistroGuide.Domain.Model.Entities.Distros;
 using DistroGuide.Domain.Services.Dto;
 
 namespace DistroGuide.Domain.Services.AutoMapper
@@ -11,8 +11,7 @@ namespace DistroGuide.Domain.Services.AutoMapper
             CreateMap<Distro, DistroSearchItemDto>()
                 .ForMember(d => d.B, map => map.MapFrom(f => f.BasedOn))
                 .ForMember(d => d.I, map => map.MapFrom(f => f.Id))
-                .ForMember(d => d.N, map => map.MapFrom(f => f.Name))
-                .ForMember(d => d.P, map => map.MapFrom(f => f.IconUrl));
+                .ForMember(d => d.N, map => map.MapFrom(f => f.Name));
         }
     }
 }

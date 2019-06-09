@@ -31,7 +31,7 @@ namespace Presentation.Api
 
             var connectionString = Configuration.GetConnectionString("DistroGuide");
 
-            services.AddDbContext<DistroGuideContext>(options => options.UseMySQL(connectionString));
+            services.AddDbContext<DistroGuideContext>(options => options.UseSqlServer(connectionString));
 
             services.AddServices();
             services.AddRepositories();
