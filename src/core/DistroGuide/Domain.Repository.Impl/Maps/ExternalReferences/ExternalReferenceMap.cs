@@ -10,11 +10,6 @@ namespace DistroGuide.Domain.Repository.Impl.Maps.ExternalReferences
         {
             builder.ToTable("ExternalReference");
             builder.HasKey(k => k.Id);
-
-            builder
-                .HasOne(p => p.ExternalReferenceType)
-                .WithMany(p => p.ExternalReferenceList)
-                .HasForeignKey(p => p.ExternalReferenceTypeId);
         }
     }
 }

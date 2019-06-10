@@ -15,7 +15,7 @@ namespace DistroGuide.Domain.Repository.Impl.Migrations
                     Name = table.Column<string>(maxLength: 100, nullable: true),
                     Start = table.Column<DateTime>(nullable: false),
                     End = table.Column<DateTime>(nullable: true),
-                    BasedOnId = table.Column<Guid>(nullable: false)
+                    BasedOnId = table.Column<Guid>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -29,15 +29,16 @@ namespace DistroGuide.Domain.Repository.Impl.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PackageType",
+                name: "Package",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: true)
+                    Name = table.Column<string>(maxLength: 150, nullable: true),
+                    PackageType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PackageType", x => x.Id);
+                    table.PrimaryKey("PK_Package", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,7 +46,7 @@ namespace DistroGuide.Domain.Repository.Impl.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: true)
+                    Name = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -53,39 +54,22 @@ namespace DistroGuide.Domain.Repository.Impl.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Package",
+                name: "ExternalReference",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 150, nullable: true),
-                    PackageTypeId = table.Column<Guid>(nullable: false)
+                    Reference = table.Column<string>(maxLength: 250, nullable: true),
+                    IsPrincipal = table.Column<bool>(nullable: false),
+                    ExternalReferenceType = table.Column<int>(nullable: false),
+                    TargetId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Package", x => x.Id);
+                    table.PrimaryKey("PK_ExternalReference", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Package_PackageType_PackageTypeId",
-                        column: x => x.PackageTypeId,
-                        principalTable: "PackageType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Resource",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: true),
-                    ResourceGroupId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Resource", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Resource_ResourceGroup_ResourceGroupId",
-                        column: x => x.ResourceGroupId,
-                        principalTable: "ResourceGroup",
+                        name: "FK_ExternalReference_Distro_TargetId",
+                        column: x => x.TargetId,
+                        principalTable: "Distro",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -118,19 +102,20 @@ namespace DistroGuide.Domain.Repository.Impl.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExternalReferenceType",
+                name: "Resource",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    ResourceId = table.Column<Guid>(nullable: false)
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    ResourceGroupId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExternalReferenceType", x => x.Id);
+                    table.PrimaryKey("PK_Resource", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ExternalReferenceType_Resource_ResourceId",
-                        column: x => x.ResourceId,
-                        principalTable: "Resource",
+                        name: "FK_Resource_ResourceGroup_ResourceGroupId",
+                        column: x => x.ResourceGroupId,
+                        principalTable: "ResourceGroup",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -155,57 +140,15 @@ namespace DistroGuide.Domain.Repository.Impl.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "DistroExternalReference",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Reference = table.Column<string>(maxLength: 250, nullable: true),
-                    IsPrincipal = table.Column<bool>(nullable: false),
-                    ExternalReferenceTypeId = table.Column<Guid>(nullable: false),
-                    TargetId = table.Column<Guid>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DistroExternalReference", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_DistroExternalReference_ExternalReferenceType_ExternalReferenceTypeId",
-                        column: x => x.ExternalReferenceTypeId,
-                        principalTable: "ExternalReferenceType",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DistroExternalReference_Distro_TargetId",
-                        column: x => x.TargetId,
-                        principalTable: "Distro",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Distro_BasedOnId",
                 table: "Distro",
                 column: "BasedOnId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DistroExternalReference_ExternalReferenceTypeId",
-                table: "DistroExternalReference",
-                column: "ExternalReferenceTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DistroExternalReference_TargetId",
-                table: "DistroExternalReference",
+                name: "IX_ExternalReference_TargetId",
+                table: "ExternalReference",
                 column: "TargetId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ExternalReferenceType_ResourceId",
-                table: "ExternalReferenceType",
-                column: "ResourceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Package_PackageTypeId",
-                table: "Package",
-                column: "PackageTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PackageDistro_DistroId",
@@ -231,16 +174,13 @@ namespace DistroGuide.Domain.Repository.Impl.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DistroExternalReference");
+                name: "ExternalReference");
 
             migrationBuilder.DropTable(
                 name: "PackageDistro");
 
             migrationBuilder.DropTable(
                 name: "ResourceTranslation");
-
-            migrationBuilder.DropTable(
-                name: "ExternalReferenceType");
 
             migrationBuilder.DropTable(
                 name: "Distro");
@@ -250,9 +190,6 @@ namespace DistroGuide.Domain.Repository.Impl.Migrations
 
             migrationBuilder.DropTable(
                 name: "Resource");
-
-            migrationBuilder.DropTable(
-                name: "PackageType");
 
             migrationBuilder.DropTable(
                 name: "ResourceGroup");

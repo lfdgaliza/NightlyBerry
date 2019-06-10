@@ -1,6 +1,6 @@
 using CrossCutting.Infra.Entities;
 using DistroGuide.Domain.Model.Entities.Distros;
-using System;
+using DistroGuide.Domain.Model.Enums;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,7 +11,6 @@ namespace DistroGuide.Domain.Model.Entities.Packages
         [MaxLength(150)]
         public string Name { get; set; }
 
-        public Guid PackageTypeId { get; set; }
         public PackageType PackageType { get; set; }
 
         public HashSet<PackageDistro> PackageDistroList { get; set; }

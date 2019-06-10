@@ -35,6 +35,7 @@ namespace Presentation.Api
 
             services.AddServices();
             services.AddRepositories();
+            
             services.AddSingletonRepositories(connectionString);
 
             services.AddCors();
@@ -63,6 +64,7 @@ namespace Presentation.Api
             app.ConfigureServicesLayer();
             app.UseHttpsRedirection();
             app.UseSwagger();
+            app.UseRequestLocalization();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");

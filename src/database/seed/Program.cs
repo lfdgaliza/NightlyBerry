@@ -54,9 +54,9 @@ namespace Seed
                         command.ExecuteNonQuery();
 
                         insert = $@"insert into ExternalReference
-                        (Id, TargetId, ExternalReferenceTypeId, Reference, IsPrincipal)
+                        (Id, TargetId, ExternalReferenceType, Reference, IsPrincipal)
                         values
-                        ('{Guid.NewGuid()}', '{distroGuid}', 'e35182b6-e94d-4866-988f-efbba491b994', '{line[LINK]}', 1)";
+                        ('{Guid.NewGuid()}', '{distroGuid}', 4, '{line[LINK]}', 1)";
 
                         command.CommandText = insert;
                         command.ExecuteNonQuery();

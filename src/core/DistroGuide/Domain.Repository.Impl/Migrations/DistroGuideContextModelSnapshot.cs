@@ -67,7 +67,7 @@ namespace DistroGuide.Domain.Repository.Impl.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<Guid>("ExternalReferenceTypeId");
+                    b.Property<int>("ExternalReferenceType");
 
                     b.Property<bool>("IsPrincipal");
 
@@ -78,25 +78,9 @@ namespace DistroGuide.Domain.Repository.Impl.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ExternalReferenceTypeId");
-
                     b.HasIndex("TargetId");
 
                     b.ToTable("ExternalReference");
-                });
-
-            modelBuilder.Entity("DistroGuide.Domain.Model.Entities.ExternalReferences.ExternalReferenceType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("ResourceId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResourceId");
-
-                    b.ToTable("ExternalReferenceType");
                 });
 
             modelBuilder.Entity("DistroGuide.Domain.Model.Entities.Packages.Package", b =>
@@ -107,28 +91,11 @@ namespace DistroGuide.Domain.Repository.Impl.Migrations
                     b.Property<string>("Name")
                         .HasMaxLength(150);
 
-                    b.Property<Guid>("PackageTypeId");
+                    b.Property<int>("PackageType");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PackageTypeId");
 
                     b.ToTable("Package");
-                });
-
-            modelBuilder.Entity("DistroGuide.Domain.Model.Entities.Packages.PackageType", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("ResourceId")
-                        .HasMaxLength(100);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResourceId");
-
-                    b.ToTable("PackageType");
                 });
 
             modelBuilder.Entity("DistroGuide.Domain.Model.Entities.Resources.Resource", b =>
@@ -154,6 +121,7 @@ namespace DistroGuide.Domain.Repository.Impl.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -204,38 +172,9 @@ namespace DistroGuide.Domain.Repository.Impl.Migrations
 
             modelBuilder.Entity("DistroGuide.Domain.Model.Entities.ExternalReferences.ExternalReference", b =>
                 {
-                    b.HasOne("DistroGuide.Domain.Model.Entities.ExternalReferences.ExternalReferenceType", "ExternalReferenceType")
-                        .WithMany("ExternalReferenceList")
-                        .HasForeignKey("ExternalReferenceTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("DistroGuide.Domain.Model.Entities.Distros.Distro")
                         .WithMany("ExternalReferenceList")
                         .HasForeignKey("TargetId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DistroGuide.Domain.Model.Entities.ExternalReferences.ExternalReferenceType", b =>
-                {
-                    b.HasOne("DistroGuide.Domain.Model.Entities.Resources.Resource", "Resource")
-                        .WithMany()
-                        .HasForeignKey("ResourceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DistroGuide.Domain.Model.Entities.Packages.Package", b =>
-                {
-                    b.HasOne("DistroGuide.Domain.Model.Entities.Packages.PackageType", "PackageType")
-                        .WithMany("PackageList")
-                        .HasForeignKey("PackageTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("DistroGuide.Domain.Model.Entities.Packages.PackageType", b =>
-                {
-                    b.HasOne("DistroGuide.Domain.Model.Entities.Resources.Resource", "Resource")
-                        .WithMany()
-                        .HasForeignKey("ResourceId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

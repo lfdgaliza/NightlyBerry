@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using DistroGuide.Domain.Services;
+﻿using DistroGuide.Domain.Services;
 using DistroGuide.Domain.Services.Dto;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace DistroGuide.Presentation.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("v1/[controller]")]
     [ApiController]
     public class DistroController : ControllerBase
     {
