@@ -6,7 +6,7 @@ namespace DistroGuide.Domain.Model.Entities.Resources
 {
     public class ResourceTranslation : BaseEntity
     {
-        [MaxLength(2)]
+        [MaxLength(5)]
         public string Language { get; set; }
         [MaxLength(250)]
         public string Translation { get; set; }

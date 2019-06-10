@@ -1,11 +1,7 @@
 ﻿using DistroGuide.Domain.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 
 namespace DistroGuide.Presentation.Api.Controllers
 {
@@ -23,22 +19,12 @@ namespace DistroGuide.Presentation.Api.Controllers
 
         [Route("module/{moduleName}")]
         [HttpGet]
-        public ActionResult<Dictionary<string, string>> GetModule(string moduleName, string[] language)
+        public ActionResult<Dictionary<string, string>> GetModule(string moduleName)
         {
             var locale = Request.HttpContext.Features.Get<IRequestCultureFeature>();
-            var BrowserCulture = locale.RequestCulture.UICulture.ToString();
+            var language = locale.RequestCulture.UICulture.ToString();
 
-            var languages = Request.GetTypedHeaders()
-                       .AcceptLanguage
-                       ?.OrderByDescending(x => x.Quality ?? 1) // Quality defines priority from 0 to 1, where 1 is the highest.
-                       .Select(x => x.Value.ToString())
-                       .ToArray() ?? Array.Empty<string>();
-
-            var y = CultureInfo.DefaultThreadCurrentUICulture.Name;
-
-            throw new NotImplementedException();
-            //Request.Cookies["dg-lang"]
-            //return this.translationService.GetModuleTranslation(moduleName, language);
+            return this.translationService.GetModuleTranslation(moduleName, language);
         }
     }
 }

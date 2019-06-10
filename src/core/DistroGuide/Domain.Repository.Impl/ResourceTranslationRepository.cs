@@ -15,17 +15,17 @@ namespace DistroGuide.Domain.Repository.Impl
             this.context = context;
         }
 
-        public IQueryable<ResourceTranslation> GetTranslationsByClassification(string classification, string language)
+        public IQueryable<ResourceTranslation> GetTranslationsByResourceGroup(string resourceGroup, string language)
         {
             var resourceTranslations = this.context
                 .Set<ResourceTranslation>()
                 .Include(i => i.Resource);
 
-            //return
-            //    from rt in resourceTranslations
-            //    where rt.Resource.Category == classification
-            //    && rt.Language == language
-            //    select rt;
+            return
+                from rt in resourceTranslations
+                where rt.Resource.ResourceGroup.Name == resourceGroup
+                && rt.Language == language
+                select rt;
 
             throw new NotImplementedException();
         }

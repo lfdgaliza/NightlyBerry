@@ -18,7 +18,7 @@ namespace DistroGuide.Domain.Services.Impl
         public Dictionary<string, string> GetModuleTranslation(string moduleName, string language)
         {
             return this.resourceTranslationRepository
-                .GetTranslationsByClassification(moduleName, language)
+                .GetTranslationsByResourceGroup(moduleName, language)
                 .ToDictionary(k => k.Resource.Name, v => v.Translation);
         }
     }
