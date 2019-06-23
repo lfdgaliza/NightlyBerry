@@ -13,6 +13,6 @@ namespace DistroGuide.Domain.Model.Entities.Resources
         public Guid ResourceGroupId { get; set; }
         public ResourceGroup ResourceGroup { get; set; }
 
-        public HashSet<ResourceTranslation> ResourceTranslations { get; set; }
+        public HashSet<ResourceTranslation> ResourceTranslationList { get; set; }
     }
 }

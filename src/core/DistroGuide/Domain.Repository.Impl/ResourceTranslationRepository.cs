@@ -1,7 +1,6 @@
 ﻿using DistroGuide.Domain.Model.Entities.Resources;
 using DistroGuide.Domain.Repository.Impl.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq;
 
 namespace DistroGuide.Domain.Repository.Impl
@@ -26,8 +25,18 @@ namespace DistroGuide.Domain.Repository.Impl
                 where rt.Resource.ResourceGroup.Name == resourceGroup
                 && rt.Language == language
                 select rt;
+        }
 
-            throw new NotImplementedException();
+        public IQueryable<ResourceTranslation> GetTranslationsByResourceGroupStartingWith(string resourceGroupStartingith, string language)
+        {
+            var resourceTranslations = this.context.Set<ResourceTranslation>()
+                .Include(r => r.Resource)
+                .ThenInclude(r => r.ResourceGroup);
+
+            return
+                from resourceTranslation in resourceTranslations
+                where resourceTranslation.Language == language
+                select resourceTranslation;
         }
     }
 }

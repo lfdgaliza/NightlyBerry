@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'resource'
+  name: 'mlt' // Multi language text
 })
-export class ResourcePipe implements PipeTransform {
+export class TranslationPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
     return "ok";

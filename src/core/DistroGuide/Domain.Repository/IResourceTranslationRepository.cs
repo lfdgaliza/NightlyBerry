@@ -6,5 +6,6 @@ namespace DistroGuide.Domain.Repository
     public interface IResourceTranslationRepository
     {
         IQueryable<ResourceTranslation> GetTranslationsByResourceGroup(string classification, string language);
+        IQueryable<ResourceTranslation> GetTranslationsByResourceGroupStartingWith(string resourceGroupStartingith, string language);
     }
 }

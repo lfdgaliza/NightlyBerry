@@ -17,7 +17,7 @@ namespace DistroGuide.Domain.Repository.Impl.Maps.Resources
                 .HasForeignKey(p => p.ResourceGroupId);
 
             builder
-                .HasMany(p => p.ResourceTranslations)
+                .HasMany(p => p.ResourceTranslationList)
                 .WithOne(p => p.Resource)
                 .HasForeignKey(p => p.ResourceId);
         }

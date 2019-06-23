@@ -16,6 +16,7 @@ namespace DistroGuide.Presentation.Api.Configuration
             services.AddScoped<ICacheService, InMemoryCacheService>();
             services.AddScoped<IDistroService, DistroService>();
             services.AddScoped<ITranslationService, TranslationService>();
+            services.AddScoped<IConfigurationService, ConfigurationService>();
 
             // TODO This is temporary (I hope so!)
             services.AddSingleton<ILayerConfiguration, ServiceConfiguration>();
