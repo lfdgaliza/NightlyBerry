@@ -10,14 +10,14 @@ import { AppComponent } from './app.component';
 import { DistroDetailComponent } from './components/distro-detail/distro-detail.component';
 import { DistroSearchComponent } from './components/distro/distro-search.component';
 import { WidgetsModule } from './widgets/widgets.module';
-import { TranslationPipe } from './pipes/translation.pipe';
+import { ResourcePipe } from './pipes/resource.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     DistroSearchComponent,
     DistroDetailComponent,
-    TranslationPipe
+    ResourcePipe
   ],
   imports: [
     HttpClientModule,

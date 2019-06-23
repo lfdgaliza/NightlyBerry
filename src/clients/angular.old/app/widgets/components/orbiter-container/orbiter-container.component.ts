@@ -12,7 +12,7 @@ export class OrbiterContainerComponent implements AfterContentInit
 {
   constructor() { }
 
-  @ContentChild(OrbiterComponent, {static: false})
+  @ContentChild(OrbiterComponent)
   orbiterComponent: OrbiterComponent
 
   size: number
